@@ -1,0 +1,169 @@
+2026-05-15 | GitHub Copilot (GPT-5.4) | organizational setup and documentation scaffold
+- Added repository guidance in README.md.
+- Added editorial doctrine in meta/EDITORIAL-DOCTRINE.md.
+- Added house manuscript template in templates/CODEX-VOLUME-TEMPLATE.md.
+- Added foundational codex volumes:
+  - codex/CX-000 The Axiom That Math Holds.md
+  - codex/CX-001 The Four Historical Layers.md
+  - codex/CX-002 The Doctrine of Record.md
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | policy documentation update
+- Added AI usage policy to README.md.
+- Created AI_USAGE.LOG to track AI-assisted repository content.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | process documentation clarification
+- Updated README.md to require cascading documentation updates when lore changes affect related materials.
+- Updated README.md to distinguish AI-authored editorial contributions from non-editorial support tasks.
+- Updated README.md to require warning and permission for borderline editorial AI contributions.
+- Updated meta/EDITORIAL-DOCTRINE.md to treat cascading documentation edits as normal maintenance outside scheduled refactor passes.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | outline draft contribution
+- Added codex/CX-003 The Post-Grimdark Imperial Condition.md as an outline-only draft volume for user revision.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | legacy lore integration and refactor
+- Added codex/CX-004 The Imperial Throne and the Galactic Constitution.md.
+- Added codex/CX-005 The Wardens and the Thirty-One Clans.md.
+- Added codex/CX-006 Campaign Territories and the Imperial Survey Corps.md.
+- Added codex/CX-007 The Automated Industrial Order.md.
+- Added codex/CX-008 The Great War of the Capitals.md.
+- Added codex/CX-009 The Silence and the Blank Centuries.md.
+- Updated codex/CX-003 On the Nature of the Galaxy.md to align with the integrated governance, Warden, territory, and industrial structure.
+- Updated README.md with current core volumes and legacy integration guidance.
+- Added meta/LEGACY-INTEGRATION-STATUS.md to document which legacy sources were integrated and which remain deferred.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | legacy exploration and continuity integration
+- Added codex/CX-010 Science, Survey, and Recovery Operations.md.
+- Added codex/CX-011 Coalition Charters and Prizetts.md.
+- Added codex/CX-012 Settlement, Claims, and Campaign Continuity.md.
+- Added codex/appendices/AX-001 Major House Register.md.
+- Added codex/appendices/AX-002 Lesser House Register.md.
+- Updated CX-003, CX-004, CX-005, CX-006, README.md, and meta/LEGACY-INTEGRATION-STATUS.md to cross-reference the new integrated slice.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | territory hierarchy canon alignment
+- Updated codex/CX-006 Campaign Territories and the Imperial Survey Corps.md to distinguish constitutional sectors from survey sectors and to align campaign geography with the territory generator's region-sector-system stack.
+- Added codex/appendices/AX-003 Territorial Survey Hierarchy and the Canonical T0 Map.md.
+- Updated README.md to list the new territorial hierarchy appendix.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | sector stewardship clarification
+- Updated codex/CX-004 The Imperial Throne and the Galactic Constitution.md, codex/CX-006 Campaign Territories and the Imperial Survey Corps.md, and codex/appendices/AX-003 Territorial Survey Hierarchy and the Canonical T0 Map.md to state that survey sectors are the default frontier fiefdom unit and that system governors operate beneath sector stewardship.
+- Updated README.md to reflect the new sector-stewardship clarification.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | ISC legacy secrecy import
+- Updated codex/CX-006 Campaign Territories and the Imperial Survey Corps.md to reincorporate legacy ISC lore on public benevolence versus private classification, sealed archives, selective disclosure, and the political tension created by suppression of frontier findings.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | FTL rewrite kickoff
+- Added codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to begin the dedicated FTL rewrite around the CHJ model, exotic-matter hyperspace transit, stargate-mediated jump space, and starter-gate campaign doctrine.
+- Updated README.md and meta/LEGACY-INTEGRATION-STATUS.md to reflect that the FTL rewrite is now active and that legacy FTL files are reference-only until explicitly reincorporated.
+- Updated codex/CX-003 On the Nature of the Galaxy.md, codex/CX-006 Campaign Territories and the Imperial Survey Corps.md, and codex/appendices/AX-003 Territorial Survey Hierarchy and the Canonical T0 Map.md to point at CX-013 as the active FTL baseline instead of treating the FTL pass as wholly deferred.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | CHJ xM dynamics definition
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to define exotic matter as xM, establish its simultaneous presence across Conventional Space, Hyperspace, and Jump Space, and add the first symbolic model for CHJ disagreement, C-Space drag, and xM coupling stress under acceleration and turning.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | CHJ calibration appendix
+- Added codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to fix SDF-1 Macross as the calibration ship, define the envelope-volume normalization method, and record the first thirteen-ship reference corpus for the FTL rewrite.
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to point at AX-004 as the companion calibration appendix.
+- Updated README.md and meta/LEGACY-INTEGRATION-STATUS.md to record AX-004 as part of the active FTL rewrite support structure.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | Star Trek Enterprise calibration expansion
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to add Enterprise NX-01, USS Enterprise NCC-1701, USS Enterprise NCC-1701-D, and USS Enterprise NCC-1701-E to the partial-data anchor set.
+- Updated AX-004 corpus notes to record the expanded 17-ship comparison set and to note that the Trek lineage remains pending promotion to full-envelope anchors until cleaner dimensional sources are secured.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | first CHJ cruise calibration targets
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to record the first explicit Conventional Space cruise targets used for CHJ calibration: SDF-1 Macross at 108 m/s and Millennium Falcon at about 300 m/s.
+- Updated AX-004 calibration notes to frame those values as provisional cruise benchmarks for later drag, handling, and ship-class fitting rather than as final derived doctrine.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | Local Mass Rating terminology
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to define Local Mass Rating, abbreviated LMR, as the combined mass of a solar system's central star and total planetary mass.
+- Updated CX-013 terminology and author notes so later gate, routing, and system-scale transit doctrine have a fixed reference term for local stellar mass context.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | Local Mass Rating drag behavior
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to define Local Mass Rating as an inverse modifier on CHJ misalignment and xM drag, using Sol as the baseline reference system.
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to clarify that current cruise-speed targets are Sol-baseline calibration values and must be recalculated in systems with different LMR.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | H-Space and J-Space compression calibration
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to define H-Space and J-Space as distinct compressed-path transit domains under a light-speed transit cap rather than as one shared superluminal velocity regime.
+- Added baseline compression calibrations in CX-013: Sol-baseline H-Space at about 26.15:1 for a nominal Earth-to-Mars hop completed in about 10 seconds, and J-Space at about 31,557,600:1 for ordinary corridor travel at about 1 light-year per second.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | xM activation and emitter architecture
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to define xM as the same substance in inert and active states, with unchanged C-Space resistance whether stored in tankage or circulating through the FTL loop.
+- Added the first engine-emitter architecture in CX-013: compression-activated xM, recirculation with less than 0.01% transient loss per cycle, emitters generating the Intrinsic Coupling Field, the first `1 kW -> 2 m` emitter anchor using diesel-generator stand-ins, and spin-up as the time required to achieve full field coverage with redundancy.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | xM thermal recovery and jump cadence
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to define xM thermal recovery limits: waste-heat retention, thermal batteries dedicated to the xM loop, reuse only below 50 C, drag-tolerant heat-pipe-like exchangers, and repeat-jump cadence limited by cooldown and buffered xM reserve.
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to add the first thermal recovery calibration anchor: about 3 minutes of cooldown after a typical jump on a Falcon-scale small hull.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | SDF-1 emitter coverage calibration
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to add first-pass formulas for naive box-surface emitter coverage, minimum emitter count, diesel-equivalent xM throughput, and thermal battery intake during a jump.
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to add a worked SDF-1 Macross calibration pass: naive surface area, minimum `1 kW / 2 m` emitter count, total emitter rating, throughput-equivalent xM demand, transient xM loss, and retained thermal load for the Sol-baseline Earth-to-Mars hop.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | size-based generator efficiency curve
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to replace the flat diesel-equivalent emitter feed proxy with a first-pass size-based generator efficiency curve and to define jump xM demand as the sum of per-emitter-class feed demand rather than a single flat factor.
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to recalculate the naive SDF-1 Macross pass under the current all-`1 kW` emitter suite, raising the throughput-equivalent xM demand because tiny emitter classes sit in the least efficient end of the stand-in curve.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | dual redundancy and emitter bubble scaling
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to fix emitter redundancy at dual coverage and to scale emitter bubble diameter with generator class as `d_i = 2 * sqrt(P_i / 1 kW) m`.
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to replace the old bare-closure SDF-1 pass with a dual-redundant single-class comparison table showing how larger emitter classes reduce part count and xM demand while keeping total field power in the same general band.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | emitter package geometry law
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to add a first-pass physical emitter geometry rule of `0.5 m^3/kW`, with cubic-equivalent side length derived from package volume so emitter class now constrains hull fit as well as field coverage.
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to add emitter package volume, cube-equivalent side length, and total installed emitter volume to the SDF-1 dual-redundant comparison pass.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | Falcon panel emitter anchor
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to replace the cube-like emitter package model with a Falcon-derived flat square panel and rear-manifold anchor: `22 in x 22 in` face, `4 in` panel thickness, `18 in` rear manifold depth, and a derived package law of `0.174489 m^3/kW`.
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to add the Falcon smallest-emitter anchor and to rewrite the SDF-1 dual-redundant comparison in terms of panel face size, stack depth, total emitter face area, and total installed emitter volume.
+
+2026-05-15 | GitHub Copilot (GPT-5.4) | comparative FTL spec table
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to add a first-pass comparative FTL spec table for the sample ship set using the universal Falcon-anchored `1 kW` panel emitter as the current common baseline for all full-envelope hulls.
+- Added Earth-to-Mars standard-jump xM processed values, thermal battery intake, total emitter face area, total installed emitter volume, and per-row sanity-check readings, while keeping Millennium Falcon on its explicit `16 x 1 kW` anchor rather than forcing a false box-coverage derivation.
+- Added pending FTL spec rows for the remaining partial-data anchors and documented the main issues exposed by the new table: capital-hull part-count explosion under the all-`1 kW` baseline and unresolved cooldown scaling above the Falcon anchor.
+
+2026-05-16 | GitHub Copilot (GPT-5.4) | non-linear jump thermal law
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to replace the old emitter-powered jump-heat proxy with an area-limited cooling law and a mass-friction thermal law, calibrated to a Falcon-scale standard jump at about `180 s` cooldown and an SDF-1-scale standard jump at about `360 s`.
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to add the Falcon circular-planform thermal approximation, record the shared thermal coefficients, refit the comparative FTL spec table with CHJ friction heat and cooldown columns, and make retained SDF-1 standard-jump heat a hull-mass property rather than an emitter-class-dependent value.
+
+2026-05-16 | GitHub Copilot (GPT-5.4) | startup xM reserve pass
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to add a minimum startup engine reserve column to the comparative FTL spec table using the working assumption `M_engine,start = 10 * M_jump,eq` for each current sample row.
+- Updated the appendix sanity-check and calibration summary text so the current sample-ship FTL specs now distinguish per-jump throughput-equivalent xM demand from immediately available engine-side working reserve.
+
+2026-05-16 | GitHub Copilot (GPT-5.4) | mixed-suite emitter doctrine
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to codify mixed emitter suites as the current practical doctrine: large backbone panels cover broad regular hull faces, while smaller contour panels close irregular geometry, redundancy pockets, and local gaps so emitter installations do not waste hull-envelope area.
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to reframe the all-`1 kW` full-envelope rows as a diagnostic baseline, not a recommended final installation, and to fix mixed-suite selection as the current working rule for practical ship fits.
+
+2026-05-16 | GitHub Copilot (GPT-5.4) | first worked mixed-suite fits
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to add the first two worked mixed-suite examples under the current doctrine: an SDF-1 Macross capital fit using `72 x 20,000 kW` backbone panels plus `2 x 1,000 kW` contour panels, and a Serenity light-hull fit using `9 x 1,000 kW` backbone panels plus `6 x 100 kW` contour panels.
+- Recorded the resulting installed ratings, emitter counts, throughput-equivalent xM demand, startup reserves, and unchanged hull-driven heat and cooldown values to show what the mixed-suite rule buys in practice.
+
+2026-05-16 | GitHub Copilot (GPT-5.4) | sample ship spec table refresh
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to replace the main comparative-table rows for SDF-1 Macross and Serenity with their current worked mixed-suite fits, while leaving unfitted ships on the diagnostic `1 kW` baseline.
+- Updated the appendix summary and sanity-check text so the main sample-ship FTL specs now distinguish between explicit worked fits and still-diagnostic baseline rows.
+
+2026-05-16 | GitHub Copilot (GPT-5.4) | full sample mixed-suite pass
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to convert every current full-envelope sample ship row to an exact-coverage worked mixed-suite fit using the current emitter class palette, while preserving Millennium Falcon as its explicit smallest-emitter anchor and leaving partial-data anchors pending.
+- Updated the worked-anchor and calibration-summary sections so the appendix now reflects the full mixed-suite sample pass, including the reduced emitter counts and throughput-equivalent xM demand across the complete full-envelope set.
+
+2026-05-16 | GitHub Copilot (GPT-5.4) | spin-up and infrastructure binning doctrine
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to define first-pass FTL infrastructure bins from `tiny` through `titanic`, treat Falcon-scale components as `small`, reject central xM reserve tankage in favor of engine-local buffered reserve, and add a standardized cylinder-platform law for approximate spin-up sizing.
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to bin the current full-envelope sample hulls by backbone emitter tier and whole-drive infrastructure tier, and to add first-pass standard-jump spin-up times using bin-scaled piping volume, engine-local reserve, and duty-cylinder activation throughput.
+
+2026-05-16 | GitHub Copilot (GPT-5.4) | hull-frame ladder and titanic emitter extension
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to define the current hull classes as frame-and-systems bands rather than mission labels, map the first hull-frame ladder onto plant, cylinder, and emitter ceilings, and add explicit `100,000 kW` and `1,000,000 kW` titanic emitter classes above the ship-scale `20,000 kW` capital tier.
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to classify the current sample hulls into the new Leviathan frame ladder and to refit Supremacy with titanic emitters, dropping its exact-coverage emitter count from `69,776` to `1,499` without changing installed rating, retained heat, or standard-jump spin-up.
+
+2026-05-16 | GitHub Copilot (GPT-5.4) | worldship titanic-cap and frame-gap audit
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to cap worldships at the existing `titanic` component tier, define worldship growth as clustered titanic infrastructure districts rather than as larger singular parts, and redirect the remaining open question toward titanic-cluster zoning and maintainability.
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to record the current missing hull-frame references, identify the nearest existing partial-data candidates where they exist, and clarify that a future worldship anchor should demonstrate clustered titanic infrastructure rather than a super-titanic hardware class.
+
+2026-05-16 | GitHub Copilot (GPT-5.4) | bantam floor and gross-tonnage framing
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to make `bantam` the smallest current FTL-capable frame, leave drone-through-bomber as sub-FTL smallcraft descriptors, and define first-pass logarithmic gross-tonnage marketing alongside the rule that frame class, mount families, and internal-module ceilings can diverge within the same weight band.
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to add gross-tonnage marketing groups, add Death Star as the current worldship anchor, and revise the missing-frame candidate queue toward Eve Online hulls for the unfilled bantam-through-battleship middle.
+
+2026-05-16 | GitHub Copilot (GPT-5.4) | amarr candidate queue and cruiser-side trek mapping
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to make the Eve-derived middle-band candidate queue Amarr-first, keep `Rifter` as the user-side Bantam sanity check, and add the rule that Eve hulls should be scaled up by at least `2x` in linear dimensions before Leviathan crewed frame and gross-tonnage assignment.
+- Updated AX-004 partial-data and gap-audit text so the Trek Enterprise line now reads as cruiser-side in the current candidate queue rather than as a corvette- or frigate-side solution.
+
+2026-05-16 | GitHub Copilot (GPT-5.4) | bantam amarr candidate refinement
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to refine the Bantam candidate queue from the earlier generic Amarr small-hull options to user-preferred `Sentinel` or `Crucifier`, while removing `Crucifier` from the Corvette row so the two frame queues no longer overlap.
+
+2026-05-16 | GitHub Copilot (GPT-5.4) | density family and dimension-first normalization
+- Updated codex/CX-013 Conventional Space, Hyperspace, and Jump Space.md to layer light, medium, and heavy density families over frame class, define the corresponding planning densities around `rho_ref`, and state that documented dimensions override documented mass when the two conflict.
+- Updated codex/appendices/AX-004 Reference Hull Set and Volume-Normalized Mass Calibration for CHJ.md to add the same density-family bands, define how they estimate missing mass or volume, and record the current read that SDF-1 and the Trek Enterprise line are light-density while Battlestar Galactica is heavy-density.
