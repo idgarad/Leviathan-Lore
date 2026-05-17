@@ -512,6 +512,55 @@ The current imperial transit order rests on several working assumptions.
 
 ## Material Implications
 
+## Legal and Strategic Prohibitions: xM Weaponization and Unmanned Structures
+
+The relativistic consequences of xM mishandling or deliberate misuse are so catastrophic that the use of xM in any weapon system is absolutely banned, without exception, under imperial and interstellar law. There are no FTL weapons permitted in any form.
+
+Additionally, no fully unmanned structure may contain any amount of xM under any circumstance. This prohibition exists to prevent the risk of weaponizing such a structure as an FTL weapon, either by accident or by hostile intent. Any violation is treated as a system-level existential threat and prosecuted accordingly.
+
+These prohibitions are a direct result of the physics described above: the energy released by a relativistic xM collision is sufficient to devastate or destroy planets, moons, or entire regions of space. The survival of inhabited worlds and the stability of the empire depend on strict adherence to these rules.
+
+## FTL System Architecture: High-Level Flow
+
+### Why Discharge and Reactivate xM?
+
+Active xM cannot simply be recirculated for additional jumps without being reset. When xM is activated, its CHJ coherency is fixed to the ship’s current position and local spacetime context. After a jump, the ship’s position, velocity, and CHJ domain have changed. Attempting to reuse already-active xM at a new location would result in the xM being “violently out of phase” with the new environment, risking destructive interference, field collapse, or catastrophic decoherence.
+
+For this reason, all active xM must be discharged and reactivated after each jump, realigning its field state with the ship’s new spacetime coordinates. The discharge module and reactivation process are essential for safe, repeatable FTL operation.
+
+
+
+#### Mathematical Basis: Galactic Position Imprint and Catastrophic Consequences
+
+Under the "The Math Must Hold" directive, the following physical model applies:
+
+- When xM is activated, it encodes (imprints) its galactic-relative position at the moment of activation.
+- If reused after a jump, the xM’s imprint disagrees with the ship’s new position. In H-Space, this causes the active xM to be displaced to its old location (the original activation point) and then accelerate toward the ship’s current position at the speed of light, carrying the density and mass of diesel fuel.
+- The ship, now in H-Space without its active xM, is left stationary and unpropelled. The xM, meanwhile, becomes a high-energy projectile, hurtling through H-Space toward the ship’s new position.
+- Upon arrival, the collision between the xM and the ship is so violent—given the relativistic speed, mass, and the known phase transition temperatures of xM—that both the ship and the xM are instantly reduced to high-temperature plasma and debris. The FTL jump technically resolves, but the ship is destroyed: its remains and the xM plasma are ejected from H-Space almost instantly at the point of loss of field (e.g., Mars in the Earth→Mars→Jupiter example).
+- The xM plasma, along with any debris carried along, continues to the intended destination (e.g., Jupiter), where it arrives as a destructive burst of plasma and wreckage. This is not merely a failed jump, but a catastrophic event with both the ship and its xM violently annihilated in the process.
+
+This model ensures that the no-reuse rule is a direct, catastrophic consequence of the underlying math and physics of CHJ coherency and galactic-relative imprinting, with clear, physically plausible outcomes for any violation.
+
+The standard FTL system aboard a Leviathan ship follows this high-level architecture:
+
+1. **FTL Engine(s):** Activate and pressurize xM, feeding it into the Active xM Network (AXN).
+2. **Active xM Network (AXN):** Main distribution loop for active xM. The AXN branches to:
+	- **Emitters:** Each emitter receives active xM to generate the Intrinsic Coupling Field. Emitters are also connected to the Hot Unused Return Line (HURL) network.
+	- **Discharge Module:** The AXN terminates at a Discharge Module, which collects xM after field use before returning it to the FTL engine(s).
+3. **HURL (Hot Unused Return Line):** Carries heated, unused xM from emitters to a dedicated heat exchanger or thermal battery module.
+4. **Heat Exchanger / Thermal Battery:** Removes waste heat from xM. Once cooled, xM is routed to the Discharge Module.
+5. **Discharge Module:** Receives both cooled xM from the heat exchanger and direct returns from the AXN, cycling all xM back to the FTL engine(s) for reactivation.
+
+**Summary Flow:**
+FTL Engine(s) → Active xM Network (AXN) → (Emitters & Discharge Module)
+Emitters → HURL → Heat Exchanger/Thermal Battery → Discharge Module → FTL Engine(s)
+AXN → Discharge Module → FTL Engine(s)
+
+This architecture ensures that xM is always cycled, cooled, and reactivated efficiently, with clear separation between the main active loop and the hot return/cooling path. All major modules (emitters, HURL, heat exchangers, discharge) are critical for safe, repeatable FTL operation.
+
+See also: AX-004 for engineering and material implications of xM handling and containment.
+
 - The distinction between H-Space and J-Space keeps local maneuver, strategic movement, and imperial logistics from collapsing into a single overpowered travel mode.
 - Distinct H-Space and J-Space compression ratios prevent local shipboard transit from collapsing into gate-equivalent strategic mobility.
 - Gate control remains one of the central levers of sovereignty because J-Space access is infrastructural rather than purely shipboard.

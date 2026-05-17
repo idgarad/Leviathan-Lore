@@ -333,7 +333,78 @@ For that reason, the present calibration pass uses a conservative outer-envelope
 - The Star Trek Enterprise lineage is now retained explicitly in the partial-data tier so the corpus preserves a multi-era exploration-hull baseline even before exact beam, height, and tonnage lines are cleaned up.
 - The Supremacy row is useful precisely because it is unreasonable. It pressures the upper bound of any later throughput and handling model, even though its raw envelope should not be mistaken for true solid material volume.
 
+
+## xM Stand-In Physical Properties
+
+For all engineering calculations in this appendix, the following real-world substances are used as stand-ins for the physical properties of active xM (exotic matter):
+
+- **Density and Viscosity:**
+	- *Diesel fuel* is used as the reference for xM density and viscosity.
+		- Typical density: 0.82–0.85 g/cm³ (820–850 kg/m³)
+		- Viscosity: Use standard diesel values for hydraulic and flow modeling.
+
+- **Thermal Capacity (Specific Heat):**
+	- *Liquid lithium* is used as the reference for xM thermal properties.
+		- Specific heat capacity: $c_{xM} \approx 3.58$ kJ/kg/K (at ~500 K)
+		- Use this value for all calculations involving heat absorption, temperature rise, and cooldown modeling.
+
+These stand-ins are chosen for their industrial relevance:
+- Diesel fuel provides a familiar baseline for fluid handling, pressurization, and network priming ("wet priming").
+- Liquid lithium is a high-performance heat transfer fluid, suitable for modeling the rapid thermal cycling and high-temperature tolerance required of xM in FTL systems.
+
+If later project work establishes different canonical values for xM properties, this section should be updated accordingly.
+
+## xM Phase Transitions (Stand-In: Liquid Lithium)
+
+
+For the purposes of engineering and thermal modeling, xM is assumed to have phase transitions as follows:
+
+- **Melting point (solid → liquid):** −20°C (−4°F) or lower (xM remains liquid at all human-habitable temperatures)
+- **Boiling point (liquid → gas):** 1,342°C (2,448°F) (as per liquid lithium stand-in)
+
+**Operational Range:**
+- Below −20°C: xM is solid (rare in normal operation; avoid subcooling)
+- −20°C to 1,342°C: xM is liquid (normal operating range for FTL system and all habitable environments)
+- Above 1,342°C: xM is gaseous (abnormal, emergency, or failure state)
+
+This ensures xM is always liquid in shipboard and planetary environments, while retaining the high boiling point of liquid lithium for thermal modeling. If later project work establishes different canonical values for xM, update this section accordingly.
+
+### Operational Hazard: xM Solidification in Space
+
+Because xM has a melting point of −20°C (−4°F), any xM that leaks into deep space (ambient temperature ~−270°C) will rapidly freeze into a solid. This creates several operational and safety hazards:
+
+- Leaked xM can solidify on hull surfaces, in vents, or around external piping, potentially clogging or damaging equipment.
+- Solid xM may form hazardous debris, complicating recovery, cleanup, or salvage operations.
+- Maintenance protocols must account for the risk of solidified xM in exposed environments, especially during EVA or hull repairs.
+
+This behavior should be considered in all engineering, safety, and emergency procedures involving xM handling and containment.
+
+---
 ## Material Implications
+
+## FTL System Architecture (Summary)
+
+
+### Why Discharge and Reactivate xM?
+
+Active xM must be discharged and reactivated after each jump because its CHJ coherency is fixed at the moment of activation, binding it to the ship’s position and local spacetime. If reused after a jump, the xM’s imprint disagrees with the ship’s new position. In H-Space, this causes the active xM to be displaced to its old location and then accelerate toward the ship’s current position at the speed of light, carrying the density and mass of diesel fuel.
+
+The resulting collision between the xM and the ship is so violent—given the relativistic speed, mass, and the known phase transition temperatures of xM—that both the ship and the xM are instantly reduced to high-temperature plasma and debris. The FTL jump technically resolves, but the ship is destroyed: its remains and the xM plasma are ejected from H-Space almost instantly at the point of loss of field (e.g., the intermediate stop). The xM plasma, along with any debris carried along, continues to the intended destination, where it arrives as a destructive burst of plasma and wreckage. This is not merely a failed jump, but a catastrophic event with both the ship and its xM violently annihilated in the process.
+
+This model ensures that the no-reuse rule is a direct, catastrophic consequence of the underlying math and physics of CHJ coherency and galactic-relative imprinting. (See CX-013 for full rationale.)
+
+Note: Future engineering may require tracking discharge time as a function of xM volume and system design.
+
+The standard FTL system architecture is as follows (see CX-013 for full diagram and flow):
+
+- **FTL Engine(s):** Activate and pressurize xM, feeding the Active xM Network (AXN).
+- **Active xM Network (AXN):** Distributes active xM to emitters and the Discharge Module.
+- **Emitters:** Generate the Intrinsic Coupling Field; connect to the HURL (Hot Unused Return Line) network.
+- **HURL:** Carries heated, unused xM to a heat exchanger or thermal battery.
+- **Heat Exchanger / Thermal Battery:** Removes waste heat; cooled xM is routed to the Discharge Module.
+- **Discharge Module:** Collects xM from both the AXN and the cooling path, returning it to the FTL engine(s).
+
+This closed-loop system ensures efficient cycling, cooling, and reactivation of xM, with clear separation between the main active loop and the hot return/cooling path. All modules are critical for safe, repeatable FTL operation.
 
 - Later CHJ engineering constants should be discussed against normalized mass classes when cross-franchise comparison matters more than franchise-native technobabble.
 - xM drag and coupling stress should be thought of as acting on an inhabited service hull, not merely on a romanticized dry structural number.
@@ -346,6 +417,40 @@ For that reason, the present calibration pass uses a conservative outer-envelope
 - Small civilian hulls remain necessary in the corpus so the CHJ rewrite does not silently become a doctrine written only for battleships.
 - Partial-data anchors preserve useful role and scale diversity without forcing the project to invent false beam, height, or tonnage figures.
 
+## Catastrophic Energy Release: SDF-1/xM Relativistic Collision
+
+If a ship like the SDF-1 attempts to reuse active xM for a second jump (e.g., Earth→Mars, then Mars→Jupiter), the resulting relativistic collision between the xM and the ship releases an extraordinary amount of energy.
+
+- **xM processed per jump:** $m_{xM} = 761.345$ kg
+- **SDF-1 published mass:** $m_{ship} = 18,000,000,000$ kg
+
+The total available energy for a head-on relativistic collision is:
+
+$$
+E_{total} \approx (m_{xM} + m_{ship}) c^2
+$$
+
+Where $c = 3 \times 10^8$ m/s. Plugging in the values:
+
+$$
+E_{total} \approx (761.345 + 18,000,000,000) \times (3 \times 10^8)^2 \\
+E_{total} \approx 1.62 \times 10^{27} \text{ J}
+$$
+
+This is equivalent to about **387 trillion megatons of TNT** ($1 \text{ megaton TNT} = 4.184 \times 10^{15}$ J).
+
+#### Planetary Consequences
+
+For perspective, this energy is many orders of magnitude greater than the Chicxulub impactor (dinosaur extinction event, $\sim$100 million megatons) or the total energy output of the Sun in a few seconds. If the destination is near a planet like Jupiter or one of its moons, the impact would:
+
+- Vaporize the ship, xM, and any nearby matter into plasma
+- Create a fireball and shockwave visible across the solar system
+- Potentially devastate or even disrupt a moon if the impact is close enough
+- Deposit enough energy to alter local planetary atmospheres or cause secondary effects (e.g., moon fragmentation, atmospheric ignition)
+
+Such an event would be catastrophic on a planetary or even system-wide scale, making the no-reuse rule for xM not just a safety protocol, but a fundamental requirement for the survival of ships, crews, and inhabited worlds.
+
+**Perspective:** The gravitational binding energy of Earth—the energy required to disperse the entire planet into space—is about $2.24 \times 10^{32}$ joules. The energy released in this collision ($1.62 \times 10^{27}$ joules) is less than Earth's total binding energy, but still enough to vaporize the surface, shatter the crust, and render any terrestrial planet or moon uninhabitable. For smaller bodies, this could be planet-destroying; for gas giants, it would cause catastrophic atmospheric and structural effects.
 ## Cross-References
 
 - CX-000
