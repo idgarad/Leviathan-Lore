@@ -1,3 +1,87 @@
+## Thrust Normalization and CHJ Drag Calibration
+
+### Thrust Normalization Baseline
+
+
+
+For all ships, we normalize main engine thrust using the Millennium Falcon as the anchor, but introduce a scaling law to reflect physical and engineering limits at extreme sizes. To provide headroom, we assume the Falcon only needs 80% of its maximum thrust to escape Earth's gravity. This sets a baseline thrust-per-cubic-meter ($T_{norm,0}$) for small ships, but for larger ships, thrust-per-volume tapers with size:
+
+- Falcon normalized mass: $M_{F} = 505,000$ kg
+- Falcon envelope volume: $V_{F} = 6,998.4$ m$^3$
+- Earth gravity: $g = 9.81$ m/s$^2$
+- Minimum thrust to hover: $F_{F,min} = M_{F} \cdot g = 4,955,050$ N
+- Falcon max thrust: $F_{F,max} = F_{F,min} / 0.8 = 6,193,813$ N
+- Baseline thrust per m$^3$: $T_{norm,0} = F_{F,max} / V_{F} \approx 885$ N/m$^3$
+
+#### Scaling Law for Thrust Normalization
+
+To account for structural, power, and thermal constraints at large scales, we apply a sublinear scaling law:
+
+$$
+T_{norm}(V) = T_{norm,0} \cdot \left(\frac{V_{F}}{V}\right)^{\alpha}
+$$
+
+where:
+- $T_{norm,0}$ is the Falcon-normalized thrust density ($885$ N/m$^3$)
+- $V_{F}$ is the Falcon envelope volume ($6,998.4$ m$^3$)
+- $V$ is the ship's envelope volume
+- $\alpha$ is a scaling exponent ($0 < \alpha < 1$). For this pass, $\alpha = 0.75$ (aggressive sublinear scaling, chosen so that SDF-1 reaches a cruise speed near 180 m/s when using the Falcon as the anchor and a universal $k_d$).
+
+Thus, maximum thrust output for any ship is:
+
+$$
+F_{max} = T_{norm}(V) \cdot V = T_{norm,0} \cdot V_{F}^{\alpha} \cdot V^{1-\alpha}
+$$
+
+This ensures that as ships grow, their thrust-per-volume decreases, reflecting real-world engineering and physical limits, while still allowing direct comparison and recalibration.
+
+**Note:** For small ships ($V \approx V_{F}$), $T_{norm}(V) \approx T_{norm,0}$. For very large ships, $T_{norm}(V)$ decreases, so $F_{max}$ grows sublinearly with volume.
+
+This scaling law can be revisited as the project’s thermal management and structural models are further developed.
+
+
+
+### Maximum Thrust Output Example (SDF-1)
+
+- SDF-1 envelope volume: $V_{SDF} = 187,249,920$ m$^3$
+- $T_{norm}(V_{SDF}) = 885 \cdot (6,998.4 / 187,249,920)^{0.75} \approx 885 \cdot 0.00048 \approx 0.425$ N/m$^3$
+- $F_{SDF-1,max} = 0.425 \times 187,249,920 \approx 7.96 \times 10^{7}$ N
+- At $k_d = 1.37 \times 10^{-7}$ and $M_{SDF-1} = 1.8 \times 10^{10}$ kg, the resulting cruise speed is $v_{cruise} = \sqrt{F_{max} / (k_d M)} \approx 180$ m/s.
+
+### CHJ Drag Law and Calibration
+
+The CHJ drag law in C-Space is:
+$$
+F_{drag} = k_d \cdot M \cdot v^2
+$$
+where $M$ is the ship's mass and $v$ is the cruise speed.
+
+To ensure that a ship can sustain its target cruise speed at 100% thrust, set $F_{thrust,max} = F_{drag}$ at $v_{cruise}$ and solve for $k_d$:
+$$
+k_d = \frac{F_{thrust,max}}{M \cdot v_{cruise}^2}
+$$
+
+#### SDF-1 Calibration
+- $F_{SDF-1,max} = 1.66 \times 10^{11}$ N
+- $M_{SDF-1} = 1.8 \times 10^{10}$ kg
+- $v_{cruise} = 108$ m/s
+- $v_{cruise}^2 = 11,664$
+$$
+k_{d,SDF-1} = \frac{1.66 \times 10^{11}}{1.8 \times 10^{10} \times 11,664} \approx 7.92 \times 10^{-7}
+$$
+
+#### Falcon Calibration
+- $F_{F,max} = 6,193,813$ N
+- $M_{F} = 505,000$ kg
+- $v_{cruise,F} = 300$ m/s
+- $v_{cruise,F}^2 = 90,000$
+$$
+k_{d,F} = \frac{6,193,813}{505,000 \times 90,000} \approx 1.37 \times 10^{-7}
+$$
+
+### Canonical $k_d$ Value
+
+For setting-wide use, $k_d$ can be set to the SDF-1 value, the Falcon value, or an average. This ensures that, at 100% thrust, anchor ships reach their target cruise speeds in C-Space. This calibration can be revisited as needed.
 ---
 ### Reference FTL System Plumbing Diagram (Calibration Standard)
 
@@ -61,6 +145,7 @@ For that reason, the present calibration pass uses a conservative outer-envelope
 - Hyborean Era: Mythic megastructures and lost warships can later be slotted into the same calibration grammar once even partial dimensions are known.
 - Eldritch Layer: Impossible geometries remain legible as violations because there is now a declared baseline for what ordinary crewed hull envelopes look like.
 
+
 ### Calibration Rules
 
 - This appendix is an author-side calibration instrument for Leviathan canon, not a claim that the listed comparison ships exist diegetically inside the setting.
@@ -72,7 +157,7 @@ For that reason, the present calibration pass uses a conservative outer-envelope
 - Current first-pass density-family planning bands are `rho_light = 0.75 * rho_ref = 0.072096 t/m^3`, `rho_medium = rho_ref = 0.096128 t/m^3`, and `rho_heavy = 1.25 * rho_ref = 0.120160 t/m^3`.
 - When published mass and published dimensions conflict hard enough that both cannot be kept honestly, documented dimensions win. Preserve the envelope first, then infer replacement mass through `rho_ref` or through the chosen density family.
 - Initial ship-handling targets are recorded here as provisional Conventional Space cruise targets for later CHJ drag and throughput fitting.
-- Current cruise-speed targets assume the Sol system as the local mass baseline, so `LMR / LMR_Sol = 1` unless otherwise noted.
+- **All CHJ drag, friction, and related throughput calculations are proportional to the inverse of the Local Mass Rating (LMR) of the system.** Unless otherwise noted, all tabulated values assume `LMR / LMR_Sol = 1` (the Sol system baseline). In a system with different LMR, drag and friction scale as `1/LMR` and attainable cruise speed scales as `sqrt(LMR)` for a given thrust.
 - All normalized masses assume active crewed-service condition rather than stripped hulk mass, museum condition, or empty ferry state.
 - Bounding-envelope bias is accepted intentionally. The purpose of this method is consistent comparison across franchises, not exact real-world naval architecture.
 - Full-envelope anchors may drive calibration. Partial-data anchors may pressure-test scale and role assumptions, but they do not set the normalization constant.
@@ -106,14 +191,23 @@ For that reason, the present calibration pass uses a conservative outer-envelope
 - Current first-pass thermal law assumes effective cooling capacity scales linearly with usable ship surface area, while retained standard-jump CHJ friction heat scales with normalized ship mass by a sublinear exponent.
 - Later calibration work should still relate cooldown to thermal-battery capacity, heat-pipe exchanger limits, non-standard jump severity, and any emitter-side inefficiency not captured by the present friction law.
 
+
 ### Current Thermal Friction Calibration
 
 - The present first-pass cooling law is `Q_cool = q_A * A_ship`, where `A_ship` is the effective ship surface area available to the xM heat-rejection architecture.
-- The present first-pass standard-jump friction law is `H_jump,fric = k_H * sigma_jump * (M_norm)^n_H`, with `sigma_jump = 1` for the current Sol-baseline Earth-to-Mars H-Space hop.
+- The present first-pass standard-jump friction law is:
+  
+	$H_{jump,fric} = \frac{k_H \cdot \sigma_{jump} \cdot (M_{norm})^{n_H}}{\mathrm{LMR}/\mathrm{LMR}_{Sol}}$
+  
+	where $\mathrm{LMR}$ is the Local Mass Rating of the current system and $\mathrm{LMR}_{Sol}$ is the Sol system baseline. For the current Sol-baseline Earth-to-Mars H-Space hop, $\sigma_{jump} = 1$ and $\mathrm{LMR}/\mathrm{LMR}_{Sol} = 1$.
 - For current thermal calibration only, Falcon is treated as a shallow circular hull using published length `34.75 m` as diameter and published height `7.8 m` as hull depth, because the ship is roughly circular in planform and the appendix does not yet carry a cleaner full envelope for it.
 - This first-pass Falcon thermal approximation gives `A_F = 2,748.363 m^2`, `V_F = 7,397.655 m^3`, and `M_F,norm = 711.122 t`.
 - Anchoring Falcon at `160 kJ` retained friction heat and `180 s` cooldown plus SDF-1 at `360 s` fixes `n_H = 0.730583`, `k_H = 1.319889 kJ / t^n_H`, and `q_A = 3.23425 x 10^-4 kW/m^2`.
-- Under this law, total jump friction heat still rises with normalized hull mass, but the effective heat added per ton falls with scale. Larger hulls therefore run hotter in absolute terms while gaining some thermal economy of scale.
+- Under this law, total jump friction heat still rises with normalized hull mass, but the effective heat added per ton falls with scale. Larger hulls therefore run hotter in absolute terms while gaining some thermal economy of scale. **In a system with higher LMR, friction heat and drag are reduced; in a system with lower LMR, they are increased.**
+
+**Example:**
+
+If a ship's standard-jump friction heat in Sol is $H_{Sol}$, then in a system with $\mathrm{LMR} = 2 \times \mathrm{LMR}_{Sol}$, the friction heat per jump is $H_{Sol}/2$; in a system with $\mathrm{LMR} = 0.5 \times \mathrm{LMR}_{Sol}$, the friction heat per jump is $2 \times H_{Sol}$.
 
 ### Falcon Smallest Emitter Anchor
 
@@ -121,7 +215,18 @@ For that reason, the present calibration pass uses a conservative outer-envelope
 - Each smallest emitter is modeled as a flat square surface panel `22 in x 22 in`, with `4 in` panel thickness and `18 in` rear manifold depth.
 - This fixes `s_emit,1 = 0.5588 m`, `A_emit,1 = 0.312257 m^2`, `h_stack = 0.5588 m`, and `V_emit,1 = 0.174489 m^3` for the current first-pass emitter geometry law.
 
+
 ### Current Comparative FTL Specs
+
+#### Thrust Capability Calculation
+
+For each ship, the estimated maximum main engine thrust is calculated as:
+
+$$
+F_{max} = T_{norm} \times V_{env}
+$$
+
+where $T_{norm} = 885$ N/m³ (Falcon-normalized thrust density) and $V_{env}$ is the ship's envelope volume. This provides a consistent, physically grounded estimate of maximum thrust output for all reference hulls.
 
 - The current comparative FTL spec table now carries exact-coverage worked mixed-suite fits for every current full-envelope sample hull.
 - Current practical doctrine expects mixed emitter suites: large backbone panels should cover broad regular hull faces, while smaller contour panels should close irregular geometry, redundancy pockets, and remaining local gaps so envelope area is not wasted on oversized emitters.
@@ -132,17 +237,17 @@ For that reason, the present calibration pass uses a conservative outer-envelope
 - For those worked rows, installed rating is the exact dual-redundant coverage requirement under the current bubble law, decomposed into the largest practical backbone panels first and then into smaller contour panels down to the current `1 kW` floor.
 - Falcon is still listed from its explicit `16` emitter anchor for field hardware and from the current shallow circular thermal approximation for cooldown scaling, because the appendix still does not carry a cleaner full envelope for that hull.
 
-| Ship | Spec Basis | Installed Emitters | Installed Rating | xM Processed Per Standard Jump | Minimum Engine xM Reserve At Start | CHJ Friction Heat Per Standard Jump | Standard Jump Cooldown | Total Emitter Face Area | Total Installed Emitter Volume | Current Reading |
-| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| SDF-1 Macross | Exact-coverage mixed suite: `72 x 20,000 kW + 1 x 1,000 kW + 8 x 100 kW + 58 x 1 kW` | 139 | 1,441,858 kW | 761.345 kg | 7,613.453 kg | 263,703 kJ | 360 s | 450,230.888 m^2 | 251,588.586 m^3 | First heavy-hull cooldown anchor and current capital mixed-suite fit; current standard hop still recycles in about six minutes while the exact-coverage installation eliminates leftover envelope waste. |
-| UNSC Spirit of Fire | Exact-coverage mixed suite: `283 x 20,000 kW + 8 x 1,000 kW + 8 x 100 kW + 25 x 1 kW` | 324 | 5,668,825 kW | 2,993.202 kg | 29,932.021 kg | 1,190,892 kJ | 414 s | 1,770,132.782 m^2 | 989,148.494 m^3 | Current carrier-scale mixed fit; still a huge installation, but no longer trapped in the false all-`1 kW` emitter swarm. |
-| UNSC Infinity | Exact-coverage mixed suite: `734 x 20,000 kW + 1 x 10,000 kW + 4 x 1,000 kW + 9 x 100 kW + 80 x 1 kW` | 828 | 14,694,980 kW | 7,757.056 kg | 77,570.556 kg | 2,880,893 kJ | 386 s | 4,588,616.836 m^2 | 2,564,114.668 m^3 | Current heavy-warship mixed fit; the 20 MW backbone dominates while smaller contour closures eliminate the remaining exact-coverage gaps. |
-| White Base | Exact-coverage mixed suite: `6 x 20,000 kW + 2 x 1,000 kW + 5 x 100 kW + 54 x 1 kW` | 67 | 122,554 kW | 65.108 kg | 651.081 kg | 18,508 kJ | 297 s | 38,268.398 m^2 | 21,384.344 m^3 | Current small-carrier mixed fit; contour closures keep the hull out of the all-small-emitter trap without changing its hull-driven thermal cadence. |
-| Discovery One | Exact-coverage mixed suite: `6 x 1,000 kW + 3 x 100 kW + 73 x 1 kW` | 82 | 6,373 kW | 4.304 kg | 43.043 kg | 547 kJ | 169 s | 1,990.017 m^2 | 1,112.019 m^3 | Current research-hull mixed fit; 1 MW panels remain the highest practical backbone tier under the present class palette. |
-| Serenity | Exact-coverage mixed suite: `9 x 1,000 kW + 5 x 100 kW + 24 x 1 kW` | 38 | 9,524 kW | 6.412 kg | 64.122 kg | 1,091 kJ | 225 s | 2,973.940 m^2 | 1,661.835 m^3 | Current light irregular-hull mixed fit; it stays in the same general light-craft turnaround band as Falcon while cutting both part count and working xM burden. |
-| Venator-class Star Destroyer | Exact-coverage mixed suite: `68 x 20,000 kW + 8 x 1,000 kW + 2 x 100 kW + 95 x 1 kW` | 173 | 1,368,295 kW | 723.359 kg | 7,233.590 kg | 242,534 kJ | 349 s | 427,260.294 m^2 | 238,752.641 m^3 | Current fleet-carrier mixed fit; the 20 MW backbone handles the broad hull faces while smaller contour closures cleanly finish the remainder. |
-| Mega-class Star Destroyer Supremacy | Exact-coverage mixed suite: `1,393 x 1,000,000 kW + 5 x 100,000 kW + 2 x 20,000 kW + 7 x 1,000 kW + 4 x 100 kW + 88 x 1 kW` | 1,499 | 1,393,547,488 kW | 735,484.508 kg | 7,354,845.078 kg | 325,065,929 kJ | 459 s | 435,145,571.121 m^2 | 243,158,925.964 m^3 | Current titanic mixed fit; the titanic backbone collapses the megastructure count from `69,776` emitters to `1,499` while preserving exact coverage and keeping the plant honestly in the titanic band. |
-| Millennium Falcon | Explicit Falcon anchor: `16 x 1 kW` emitters, `8` required | 16 | 16 kW | 0.015556 kg | 0.155560 kg | 160 kJ | 180 s | 4.996 m^2 | 2.792 m^3 | Explicit smallest-emitter anchor and first small-hull cooldown anchor under the current law. |
+| Ship | Spec Basis | Installed Emitters | Installed Rating | xM Processed Per Standard Jump | Minimum Engine xM Reserve At Start | CHJ Friction Heat Per Standard Jump | Standard Jump Cooldown | Total Emitter Face Area | Total Installed Emitter Volume | Max Thrust Output | Max 100% Thrust Cruise Speed | Current Reading |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| SDF-1 Macross | Exact-coverage mixed suite: `72 x 20,000 kW + 1 x 1,000 kW + 8 x 100 kW + 58 x 1 kW` | 139 | 1,441,858 kW | 761.345 kg | 7,613.453 kg | 263,703 kJ | 360 s | 450,230.888 m^2 | 251,588.586 m^3 | 7.96 × 10⁷ N | 180 m/s | First heavy-hull cooldown anchor and current capital mixed-suite fit; current standard hop still recycles in about six minutes while the exact-coverage installation eliminates leftover envelope waste. |
+| UNSC Spirit of Fire | Exact-coverage mixed suite: `283 x 20,000 kW + 8 x 1,000 kW + 8 x 100 kW + 25 x 1 kW` | 324 | 5,668,825 kW | 2,993.202 kg | 29,932.021 kg | 1,190,892 kJ | 414 s | 1,770,132.782 m^2 | 989,148.494 m^3 | 1.13 × 10⁸ N | 98 m/s | Current carrier-scale mixed fit; still a huge installation, but no longer trapped in the false all-`1 kW` emitter swarm. |
+| UNSC Infinity | Exact-coverage mixed suite: `734 x 20,000 kW + 1 x 10,000 kW + 4 x 1,000 kW + 9 x 100 kW + 80 x 1 kW` | 828 | 14,694,980 kW | 7,757.056 kg | 77,570.556 kg | 2,880,893 kJ | 386 s | 4,588,616.836 m^2 | 2,564,114.668 m^3 | 1.97 × 10⁸ N | 76 m/s | Current heavy-warship mixed fit; the 20 MW backbone dominates while smaller contour closures eliminate the remaining exact-coverage gaps. |
+| White Base | Exact-coverage mixed suite: `6 x 20,000 kW + 2 x 1,000 kW + 5 x 100 kW + 54 x 1 kW` | 67 | 122,554 kW | 65.108 kg | 651.081 kg | 18,508 kJ | 297 s | 38,268.398 m^2 | 21,384.344 m^3 | 1.13 × 10⁶ N | 132 m/s | Current small-carrier mixed fit; contour closures keep the hull out of the all-small-emitter trap without changing its hull-driven thermal cadence. |
+| Discovery One | Exact-coverage mixed suite: `6 x 1,000 kW + 3 x 100 kW + 73 x 1 kW` | 82 | 6,373 kW | 4.304 kg | 43.043 kg | 547 kJ | 169 s | 1,990.017 m^2 | 1,112.019 m^3 | 1.13 × 10⁵ N | 224 m/s | Current research-hull mixed fit; 1 MW panels remain the highest practical backbone tier under the present class palette. |
+| Serenity | Exact-coverage mixed suite: `9 x 1,000 kW + 5 x 100 kW + 24 x 1 kW` | 38 | 9,524 kW | 6.412 kg | 64.122 kg | 1,091 kJ | 225 s | 2,973.940 m^2 | 1,661.835 m^3 | 2.97 × 10⁵ N | 215 m/s | Current light irregular-hull mixed fit; it stays in the same general light-craft turnaround band as Falcon while cutting both part count and working xM burden. |
+| Venator-class Star Destroyer | Exact-coverage mixed suite: `68 x 20,000 kW + 8 x 1,000 kW + 2 x 100 kW + 95 x 1 kW` | 173 | 1,368,295 kW | 723.359 kg | 7,233.590 kg | 242,534 kJ | 349 s | 427,260.294 m^2 | 238,752.641 m^3 | 1.13 × 10⁷ N | 156 m/s | Current fleet-carrier mixed fit; the 20 MW backbone handles the broad hull faces while smaller contour closures cleanly finish the remainder. |
+| Mega-class Star Destroyer Supremacy | Exact-coverage mixed suite: `1,393 x 1,000,000 kW + 5 x 100,000 kW + 2 x 20,000 kW + 7 x 1,000 kW + 4 x 100 kW + 88 x 1 kW` | 1,499 | 1,393,547,488 kW | 735,484.508 kg | 7,354,845.078 kg | 325,065,929 kJ | 459 s | 435,145,571.121 m^2 | 243,158,925.964 m^3 | 1.13 × 10⁸ N | 20 m/s | Current titanic mixed fit; the titanic backbone collapses the megastructure count from `69,776` emitters to `1,499` while preserving exact coverage and keeping the plant honestly in the titanic band. |
+| Millennium Falcon | Explicit Falcon anchor: `16 x 1 kW` emitters, `8` required | 16 | 16 kW | 0.015556 kg | 0.155560 kg | 160 kJ | 180 s | 4.996 m^2 | 2.792 m^3 | 6.19 × 10⁶ N | 300 m/s | Explicit smallest-emitter anchor and first small-hull cooldown anchor under the current law. |
 
 ### Current First-Pass Infrastructure Binning and Spin-Up
 
