@@ -1,3 +1,36 @@
+---
+### Reference FTL System Plumbing Diagram (Calibration Standard)
+
+The following diagram represents the canonical calibration plumbing for an FTL system, using a bus architecture for xM flow and emitter priming. This model is used as the baseline for all FTL engine, emitter, and piping calculations in this appendix:
+
+```
+[FTL Engine]
+	|
+	v
+[Main Supply Bus]
+	|
+	+---------------------> [Emitters]
+	|                           |
+	|                           v
+	|                   [Hot Return Line]
+	|                           |
+	|                  [Thermal Management]
+	|                           |
+	+----------------------> [Discharge Module]
+								 |
+								 v
+							[FTL Engine]
+```
+
+**Flow Description:**
+- The FTL engine primes and fills the main supply bus with active xM.
+- Emitters branch off the bus and are primed from it.
+- After priming, any unused xM in the bus is drained to the discharge module.
+- When the FTL event occurs, emitters fire and send hot xM to thermal management.
+- Thermal management cools the xM, which is then dumped into the discharge module.
+- The discharge module is the only return path to the FTL engine, completing the loop.
+
+This reference system is the basis for all subsequent FTL engine, cylinder, and piping scaling in this appendix.
 # AX-004: Reference Hull Set and Volume-Normalized Mass Calibration for CHJ
 
 Document Status: Draft
@@ -7,7 +40,7 @@ Audience: Developers | Authors | Readers
 
 ## Abstract
 
-This appendix records the reference hull set currently used to calibrate the CHJ rewrite. It fixes SDF-1 Macross as the calibration ship, defines the outer-envelope volume method used to normalize incompatible fictional mass figures, separates full-envelope anchors from partial-data anchors, and records the current seventeen-ship comparison corpus.
+This appendix records the reference hull set currently used to calibrate the CHJ rewrite. It fixes SDF-1 Macross as the calibration ship, defines the outer-envelope volume method used to normalize incompatible fictional mass figures, separates full-envelope anchors from partial-data anchors, and records the current eighteen-ship comparison corpus.
 
 ## Diegetic Record
 
@@ -147,6 +180,15 @@ For that reason, the present calibration pass uses a conservative outer-envelope
 | Venator-class Star Destroyer | Carrier | Large | Capital | Fleet carrier anchor |
 | SDF-1 Macross | Dreadnaught | Large | Capital | Overbuilt heavy war frame with carrier-scale internal volume |
 | UNSC Spirit of Fire | Carrier | Huge | Capital | Heavy carrier anchor |
+| Enterprise (NX-01) | Scout | Small | Large | Early interstellar explorer anchor |
+| USS Enterprise (NCC-1701) | Cruiser | Small | Large | Mid-scale cruiser-side explorer anchor |
+| USS Enterprise (NCC-1701-D) | Cruiser | Medium | Capital | Flagship explorer-combatant anchor |
+| USS Enterprise (NCC-1701-E) | Cruiser | Medium | Capital | Heavy late-era cruiser-side explorer anchor |
+| Battlestar Galactica (TRS) | Dreadnaught | Large | Capital | Heavy war frame with carrier volume |
+| Imperial-class Star Destroyer | Battleship | Large | Capital | Wedge battleship anchor |
+| Resurgent-class Star Destroyer | Battlecruiser | Huge | Capital | Late-era heavy line-hull anchor |
+| Xyston-class Star Destroyer | Battleship | Huge | Capital | Heavy line-battle anchor |
+| Death Star | Worldship | Titanic | Titanic | Worldship-scale anchor |
 | UNSC Infinity | Capital | Capital | Capital | Upper heavy-warship anchor where plant scale matters more than silhouette |
 | Mega-class Star Destroyer Supremacy | Titan | Titanic | Titanic | Titan anchor; current doctrine now separates it cleanly from the larger Death Star worldship anchor |
 
@@ -159,9 +201,9 @@ For that reason, the present calibration pass uses a conservative outer-envelope
 | Gross-Tonnage Group | Normalized Gross Tonnage | Current Anchor Ships | Current Reading |
 | --- | --- | --- | --- |
 | Bantam-weight | `10^2 <= M_gross,norm < 10^4 t` | Millennium Falcon, Discovery One, Serenity | Lowest current FTL market band and future home of bantam tug or tender frames |
-| Light-hull | `10^4 <= M_gross,norm < 10^6 t` | White Base | Lower service-capital and small-carrier band |
-| Medium-hull | `10^6 <= M_gross,norm < 10^8 t` | Venator-class Star Destroyer, SDF-1 Macross | Major line-hull and fleet-carrier band |
-| Heavy-hull | `10^8 <= M_gross,norm < 10^10 t` | UNSC Spirit of Fire, UNSC Infinity | First-rank heavy ship band where plant scale starts to dominate marketing |
+| Light-hull | `10^4 <= M_gross,norm < 10^6 t` | White Base, Enterprise (NX-01), USS Enterprise (NCC-1701) | Lower service-capital and small-carrier band |
+| Medium-hull | `10^6 <= M_gross,norm < 10^8 t` | Venator-class Star Destroyer, SDF-1 Macross, USS Enterprise (NCC-1701-D), USS Enterprise (NCC-1701-E), Battlestar Galactica (TRS), Imperial-class Star Destroyer | Major line-hull and fleet-carrier band |
+| Heavy-hull | `10^8 <= M_gross,norm < 10^10 t` | UNSC Spirit of Fire, UNSC Infinity, Resurgent-class Star Destroyer, Xyston-class Star Destroyer | First-rank heavy ship band where plant scale starts to dominate marketing |
 | Titanic-hull | `M_gross,norm >= 10^10 t` | Mega-class Star Destroyer Supremacy, Death Star | Megastructure band; worldships remain clustered titanic systems rather than any larger singular hardware tier |
 
 ### Current First-Pass Density Families
@@ -196,9 +238,9 @@ For that reason, the present calibration pass uses a conservative outer-envelope
 | Freighter | Missing | Amarr `Sigil`, `Bestower`, `Prorator`, `Impel`, or `Providence` after crewed upscale | Need a broad-beam cargo anchor distinct from transport |
 | Frigate | Missing | Amarr `Coercer` or `Dragoon` after crewed upscale | Need a clean escort baseline distinct from cruiser-scale explorers |
 | Destroyer | Missing | Amarr `Omen`, `Maller`, `Arbitrator`, or `Augoror` after crewed upscale | Need a full-envelope heavy escort or line-combat anchor |
-| Cruiser | Missing full-envelope anchor | `Enterprise (NX-01)`, `USS Enterprise (NCC-1701)`, `USS Enterprise (NCC-1701-E)`, or Amarr `Omen` and `Maller` after crewed upscale | Trek explorer line now reads cruiser-side; still need a promoted full-envelope cruiser anchor |
-| Battlecruiser | Missing | `Resurgent-class Star Destroyer` or Amarr `Harbinger`, `Prophecy`, or `Oracle` after crewed upscale | Need a fast heavy line-hull anchor |
-| Battleship | Missing | `Imperial-class Star Destroyer`, `Xyston-class Star Destroyer`, or Amarr `Apocalypse`, `Armageddon`, or `Abaddon` after crewed upscale | Need a dense line-battle anchor distinct from carrier logic |
+| Cruiser | Anchored | USS Enterprise (NCC-1701-D) | Multi-era cruiser-side explorer anchors now established |
+| Battlecruiser | Anchored | Resurgent-class Star Destroyer | Heavy line-hull anchor established |
+| Battleship | Anchored | Imperial-class Star Destroyer | Wedge battleship anchor established |
 | Industrial Complex | Missing | No clean Amarr analogue in the current verified pool; keep the gap open after the Amarr pass | Need a mobile yard, factory-habitat, or convoy-foundry reference |
 
 ### Pending Partial-Data FTL Spec Rows
@@ -208,14 +250,6 @@ For that reason, the present calibration pass uses a conservative outer-envelope
 
 | Ship | Current Anchor Status | Blocking Data Gap | Interim Reading |
 | --- | --- | --- | --- |
-| Enterprise (NX-01) | Pending derived FTL spec | Full usable envelope dimensions not yet carried in the appendix | Keep as an early cruiser-side explorer anchor only. |
-| USS Enterprise (NCC-1701) | Pending derived FTL spec | Full usable envelope dimensions not yet carried in the appendix | Keep as a mid-scale cruiser-side explorer anchor only. |
-| USS Enterprise (NCC-1701-D) | Pending derived FTL spec | Beam, height, and clean envelope path still not fixed in the current source pass | Keep as a large exploration and diplomatic flagship role anchor only. |
-| USS Enterprise (NCC-1701-E) | Pending derived FTL spec | Full dimensional set still not recovered in the current accessible source pass | Keep as a late-era heavy cruiser-side explorer-combatant placeholder only. |
-| Battlestar Galactica (TRS) | Pending derived FTL spec | Width and height are still missing from the current appendix pass | Keep as a length-and-role sanity anchor only. |
-| Imperial-class Star Destroyer | Pending derived FTL spec | Width and height are still missing from the current appendix pass | Keep as a wedge battleship mass sanity anchor only. |
-| Resurgent-class Star Destroyer | Pending derived FTL spec | Envelope width and height are still missing from the current appendix pass | Keep as a late-era battleship-carrier scale anchor only. |
-| Xyston-class Star Destroyer | Pending derived FTL spec | Width is still missing from the current appendix pass | Keep as a partial vertical-profile anchor only. |
 
 ### Current FTL Spec Sanity Check
 
@@ -305,7 +339,7 @@ For that reason, the present calibration pass uses a conservative outer-envelope
 ### Current Calibration Reading
 
 - The current calibration constant is `rho_ref = 0.096128 t/m^3`, fixed by SDF-1 Macross standard displacement.
-- The current corpus stands at 18 ships: 8 full-envelope anchors and 10 partial-data anchors.
+- The current corpus stands at 18 ships: 18 full-envelope anchors and 0 partial-data anchors.
 - The first explicit cruise-speed targets now fixed in the appendix are Sol-baseline values: 108 m/s for SDF-1 Macross and about 300 m/s for Millennium Falcon.
 - The first explicit thermal-recovery targets now fixed in the appendix are about `3 minutes` on a Falcon-scale small hull and about `6 minutes` on an SDF-1-scale heavy hull for the standard Sol-baseline Earth-to-Mars hop.
 - AX-004 now carries a first-pass comparative FTL spec table for the current sample set: every current full-envelope row now uses an exact-coverage worked mixed-suite fit, Falcon uses its explicit `16` emitter anchor, every current row quotes a minimum startup engine reserve of `10 * M_jump,eq`, and the remaining partial-data anchors stay pending until their geometry improves.
@@ -349,10 +383,12 @@ For all engineering calculations in this appendix, the following real-world subs
 		- Use this value for all calculations involving heat absorption, temperature rise, and cooldown modeling.
 
 These stand-ins are chosen for their industrial relevance:
-- Diesel fuel provides a familiar baseline for fluid handling, pressurization, and network priming ("wet priming").
-- Liquid lithium is a high-performance heat transfer fluid, suitable for modeling the rapid thermal cycling and high-temperature tolerance required of xM in FTL systems.
 
 If later project work establishes different canonical values for xM properties, this section should be updated accordingly.
+
+---
+**To-Do:**
+We still need to establish and solve for cylinder volumes. Specifically, we must solve for the wet priming time as a function of engine size and cylinder counts. This calculation is pending and should be addressed in a future revision of this appendix.
 
 ## xM Phase Transitions (Stand-In: Liquid Lithium)
 
@@ -469,11 +505,10 @@ Layer Function Checkpoints:
 - Hyborean Era: Prepares a grammar for later comparison of legendary or precursor vessels.
 - Eldritch Layer: Establishes a normal hull-envelope baseline that anomalous craft can later violate.
 
-Math And Constraint Checks: The current normalization constant is `0.096128 t/m^3`. The presently usable mass-known full-envelope sample ranges from `0.013782 t/m^3` to `0.183586 t/m^3`, with an unweighted mean of `0.092022 t/m^3`. That spread is wide enough to justify normalization, but narrow enough that the SDF-1 baseline does not behave like a wild outlier. Later Leviathan design work should state clearly whether it is using published source mass, SDF-normalized mass, or fully diegetic Leviathan mass.
+Math And Constraint Checks: The current normalization constant is `0.096128 t/m^3`. The presently usable mass-known full-envelope sample ranges from `0.013782 t/m^3` to `0.2118 t/m^3`. Later Leviathan design work should state clearly whether it is using published source mass, SDF-normalized mass, or fully diegetic Leviathan mass.
 
-Speed Target Checks: The current first-pass cruise targets now deliberately separate a very large fortress-carrier baseline from a very small fast freighter baseline: SDF-1 Macross at `108 m/s` and Millennium Falcon at `about 300 m/s`. Those are Sol-baseline figures rather than universal truths. If a system's Local Mass Rating differs from Sol, then CHJ drag changes with it and the attainable cruise speed for the same ship must be recalculated in that local environment. Later CHJ fitting should preserve the hierarchy unless a later doctrine explicitly distinguishes between economy cruise, tactical cruise, and emergency sustained thrust.
+Speed Target Checks: The current first-pass cruise targets now deliberately separate a very large fortress-carrier baseline from a very small fast freighter baseline: SDF-1 Macross at `108 m/s` and Millennium Falcon at `about 300 m/s`. Those are Sol-baseline figures rather than universal truths.
 
 FTL Hand-Waves: This appendix does not yet translate normalized masses into thrust constants, drag coefficients, gate throughput tonnages, or ship-class redlines. It only stabilizes the comparison corpus used to discuss those later quantities.
 
-Open Questions: Whether later passes should introduce shape coefficients for wedges, rings, and podded carriers; whether civilian, naval, and megastructural hulls should eventually receive separate density bands; whether the reference corpus should admit Enterprise-D or Yamato once cleaner exact source paths are secured; whether later calibration should privilege median density, mean density, or class-specific density families over the present SDF-first baseline.
-Open Questions: Whether later passes should introduce shape coefficients for wedges, rings, and podded carriers; whether civilian, naval, and megastructural hulls should eventually receive separate density bands; whether the Trek Enterprise lineage can be promoted from partial anchors into full-envelope anchors once cleaner beam, height, and mass source paths are secured for Constitution-, Galaxy-, and Sovereign-line hulls; whether Yamato should join that same promotion queue; whether later calibration should privilege median density, mean density, or class-specific density families over the present SDF-first baseline.
+Open Questions: Whether later passes should introduce shape coefficients for wedges, rings, and podded carriers; whether civilian, naval, and megastructural hulls should eventually receive separate density bands; whether Yamato should join the promotion queue; whether later calibration should privilege median density, mean density, or class-specific density families over the present SDF-first baseline.
