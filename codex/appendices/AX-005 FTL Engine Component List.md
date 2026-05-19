@@ -8,7 +8,11 @@ All FTL engine classes assume a safety margin between each cylinder equal to one
 - xM 4-port intake manifold (size-dependent, with overpressure vent)
 - 2 xM intake manifold sensor arrays
 - xM buffer tank (size-dependent, 10× total primary cylinder capacity)
-- Primary mounting block (size-dependent, distributes xM lag resistance to hull)
+	- Primary mounting block (size-dependent, distributes xM lag resistance to hull)
+	- Upper mounting block (size-dependent, distributes xM lag resistance to hull)
+	- 4 DSCS (Damped Structural Coupling Struts) interfacing with the upper mounting block (shock absorbers for xM resistance and sudden motion)
+	- 4 DSCS (Damped Structural Coupling Struts) interfacing with the lower mounting block (shock absorbers for xM resistance and sudden motion)
+		- DSCS operate in two modes: powered and unpowered. In powered mode, they use force field technology to convert ship power (in megawatts) into kinetic-to-heat conversion, dissipating sudden forces as heat. This conversion is not 100% efficient; currently, only 20% of the absorbed kinetic force is converted to heat (partial conversion).
 - Mounting bolts (and, for large sizes, full welding of mounting block to hull)
 - Primary & secondary engine control modules
 - 6 block sensor arrays
@@ -26,18 +30,18 @@ All FTL engine classes assume a safety margin between each cylinder equal to one
 ---
 
 **Mounting Note:**
-All mounting bolts, welds, and hull interface gaskets for each FTL engine class are sized to withstand the maximum CHJ force at cruise speed, with a safety margin as defined in AX-004. Exceeding this force risks deformation or failure of the mounting and catastrophic engine decoupling.
+All mounting bolts, welds, and hull interface gaskets for each FTL engine class are sized to withstand the maximum resistive coupling force (CHJ Drag) at cruise speed. This creates a trade-off: higher engine counts provide more anchor points for speed, but the increased xM inventory burden reduces maneuverability and G-load limits.
 
 ---
 
-**CHJ Force at Cruise:**
-The maximum force applied to the FTL engine mounting during acceleration or maneuvering is determined by the total xM mass present in the engine (sum of all cylinders and buffer tank) multiplied by the ship's acceleration:
+**Coupling Forces and Dynamics:**
+The force applied to an individual FTL engine mounting block is the sum of the engine's internal xM inertia and its share of the total ship drag:
 
-    F_CHJ = m_xM,engine_total × a_ship
+    F_total = (m_xM,engine × a_ship) + (F_drag_total / N_engines)
 
-where m_xM,engine_total = (maximum cylinder capacity + buffer tank capacity).
+where $F_{drag\_total}$ is defined by the CHJ Drag Law in AX-004.
 
-The mounting system must be sized so that its yield strength exceeds this force for the highest expected acceleration (cruise or emergency). This value sets the limiting factor for safe cruise and maneuvering performance unless a weaker link is found elsewhere in the FTL system.
+Mount yield strength sets the limit for safe performance. Tactical configurations (N+ engines) optimize for spin-up time, while performance configurations (minimal engines) optimize for G-load tolerance and cruise efficiency.
 
 ---
 
@@ -55,7 +59,10 @@ The mounting system must be sized so that its yield strength exceeds this force 
 - 2 xM intake manifold sensor arrays
 - xM buffer tank (Tiny, 10× cylinder capacity, ~10 L)
 	- Primary mounting block (Tiny, ~30 kg)
-	- Hull interface gasket (Tiny, sized to block)
+	- Upper mounting block (Tiny, ~30 kg)
+	- 4 DSCS (Damped Structural Coupling Struts, Tiny, shock absorbers for xM resistance and sudden motion, upper block)
+	- 4 DSCS (Damped Structural Coupling Struts, Tiny, shock absorbers for xM resistance and sudden motion, lower block)
+		- DSCS operate in two modes: powered and unpowered. In powered mode, they use force field technology to convert ship power (in megawatts) into kinetic-to-heat conversion, dissipating sudden forces as heat.
 - Mounting bolts
 - Primary & secondary engine control modules
 - 6 block sensor arrays
@@ -87,7 +94,10 @@ The mounting system must be sized so that its yield strength exceeds this force 
 - 2 xM intake manifold sensor arrays
 - xM buffer tank (Small, ~40–60 L)
 	- Primary mounting block (Small, ~80 kg)
-	- Hull interface gasket (Small, sized to block)
+	- Upper mounting block (Small, ~80 kg)
+	- 4 DSCS (Damped Structural Coupling Struts, Small, shock absorbers for xM resistance and sudden motion, upper block)
+	- 4 DSCS (Damped Structural Coupling Struts, Small, shock absorbers for xM resistance and sudden motion, lower block)
+		- DSCS operate in two modes: powered and unpowered. In powered mode, they use force field technology to convert ship power (in megawatts) into kinetic-to-heat conversion, dissipating sudden forces as heat.
 - Mounting bolts
 - Primary & secondary engine control modules
 - 6 block sensor arrays
@@ -118,7 +128,10 @@ The mounting system must be sized so that its yield strength exceeds this force 
 - 2 xM intake manifold sensor arrays
 - xM buffer tank (Medium, ~200–400 L)
 	- Primary mounting block (Medium, ~200 kg)
-	- Hull interface gasket (Medium, sized to block)
+	- Upper mounting block (Medium, ~200 kg)
+	- 4 DSCS (Damped Structural Coupling Struts, Medium, shock absorbers for xM resistance and sudden motion, upper block)
+	- 4 DSCS (Damped Structural Coupling Struts, Medium, shock absorbers for xM resistance and sudden motion, lower block)
+		- DSCS operate in two modes: powered and unpowered. In powered mode, they use force field technology to convert ship power (in megawatts) into kinetic-to-heat conversion, dissipating sudden forces as heat.
 - Mounting bolts
 - Primary & secondary engine control modules
 - 6 block sensor arrays
@@ -149,7 +162,10 @@ The mounting system must be sized so that its yield strength exceeds this force 
 - 2 xM intake manifold sensor arrays
 - xM buffer tank (Large, ~1,000–2,000 L)
 	- Primary mounting block (Large, ~600 kg)
-	- Hull interface gasket (Large, sized to block)
+	- Upper mounting block (Large, ~600 kg)
+	- 4 DSCS (Damped Structural Coupling Struts, Large, shock absorbers for xM resistance and sudden motion, upper block)
+	- 4 DSCS (Damped Structural Coupling Struts, Large, shock absorbers for xM resistance and sudden motion, lower block)
+		- DSCS operate in two modes: powered and unpowered. In powered mode, they use force field technology to convert ship power (in megawatts) into kinetic-to-heat conversion, dissipating sudden forces as heat.
 - Mounting bolts (plus full welding of primary mounting block to hull required)
 - Primary & secondary engine control modules
 - 6 block sensor arrays
@@ -182,7 +198,10 @@ The mounting system must be sized so that its yield strength exceeds this force 
 - 2 xM intake manifold sensor arrays
 - xM buffer tank (Huge, ~5,000–10,000 L)
 	- Primary mounting block (Huge, ~1,800 kg)
-	- Hull interface gasket (Huge, sized to block)
+	- Upper mounting block (Huge, ~1,800 kg)
+	- 4 DSCS (Damped Structural Coupling Struts, Huge, shock absorbers for xM resistance and sudden motion, upper block)
+	- 4 DSCS (Damped Structural Coupling Struts, Huge, shock absorbers for xM resistance and sudden motion, lower block)
+		- DSCS operate in two modes: powered and unpowered. In powered mode, they use force field technology to convert ship power (in megawatts) into kinetic-to-heat conversion, dissipating sudden forces as heat.
 - Mounting bolts (plus full welding of primary mounting block to hull required)
 - Primary & secondary engine control modules
 - 6 block sensor arrays
@@ -215,7 +234,10 @@ The mounting system must be sized so that its yield strength exceeds this force 
 - 2 xM intake manifold sensor arrays
 - xM buffer tank (Titanic, ~50,000–100,000 L)
 	- Primary mounting block (Titanic, ~8,000 kg)
-	- Hull interface gasket (Titanic, sized to block)
+	- Upper mounting block (Titanic, ~8,000 kg)
+	- 4 DSCS (Damped Structural Coupling Struts, Titanic, shock absorbers for xM resistance and sudden motion, upper block)
+	- 4 DSCS (Damped Structural Coupling Struts, Titanic, shock absorbers for xM resistance and sudden motion, lower block)
+		- DSCS operate in two modes: powered and unpowered. In powered mode, they use force field technology to convert ship power (in megawatts) into kinetic-to-heat conversion, dissipating sudden forces as heat.
 - Mounting bolts (plus full welding of primary mounting block to hull required)
 - Primary & secondary engine control modules
 - 6 block sensor arrays
@@ -232,3 +254,121 @@ The mounting system must be sized so that its yield strength exceeds this force 
 	- Secondary maintenance terminal (mounted to upper catwalk)
 	- Upper catwalk for maintenance access
 
+---
+
+## Estimated FTL Engine Power Requirements (Spin-Up)
+
+The following table provides estimated FTL engine spin-up energy requirements for each engine class, based on the Falcon-derived scaling law of **600 MJ per kg of xM processed** (see AX-004). Values are for a single engine's standard spin-up cycle.
+
+| Engine Class | Approx. Wet-Line Prime Mass (kg) | Spin-Up Energy (MJ) | Spin-Up Energy (GJ) |
+|-------------|-------------------------------|---------------------|---------------------|
+| Tiny        | 0.02                          | 12                  | 0.012               |
+| Small       | 0.26                          | 156                 | 0.156               |
+| Medium      | 84.7                          | 50,820              | 50.8                |
+| Large       | 1,517                         | 910,200             | 910.2               |
+| Huge        | 4,734                         | 2,840,400           | 2,840               |
+| Titanic     | 1,163,262                     | 697,957,200         | 697,957             |
+
+**Notes:**
+- Wet-line prime mass values are estimated from AX-004 and may be refined as calibration improves.
+- Total ship spin-up energy = (number of engines) × (per-engine value).
+- For SDF-1 (4 huge engines): total spin-up energy ≈ 11,360 MJ (11.36 GJ).
+- These values represent the energy required to prime the FTL engine for a standard jump, not idle or cruise operation.
+- Use the formula: $E_{\text{spin-up}} = 600~\text{MJ} \times M_{\text{prime}}$ for any engine.
+
+---
+
+## Estimated FTL Engine Idle Power Draw (Total xM Inventory)
+
+Idle (standby/containment) power draw for each FTL engine class is now calculated using the total xM inventory in the engine (cylinders + buffer tank), not just the wet-line prime mass. This better reflects the containment and readiness burden for all active xM within the engine system.
+
+**Formula:**
+- $P_{\text{idle}} = 15~\text{kW} \times M_{\text{xM,total}}$
+- Where $M_{\text{xM,total}}$ is the total xM mass in the engine (cylinders + buffer tank), in kg.
+
+**Example Idle Draws (per engine):**
+| Engine Class | Cylinder Capacity (kg) | Buffer Tank (kg) | Total xM (kg) | Idle Power Draw (kW) |
+|--------------|-----------------------|------------------|---------------|---------------------|
+| Tiny         | 2.4                   | 24               | 26.4          | 396                 |
+| Small        | 9.6                   | 48               | 57.6          | 864                 |
+| Medium       | 36                    | 360              | 396           | 5,940               |
+| Large        | 144                   | 1,440            | 1,584         | 23,760              |
+| Huge         | 600                   | 6,000            | 6,600         | 99,000              |
+| Titanic      | 2,400                 | 24,000           | 26,400        | 396,000             |
+
+**Notes:**
+- Buffer tank is assumed to be 10× cylinder capacity for all classes (see component lists).
+- Idle draw is now significantly higher, reflecting the containment burden for all xM present in the engine.
+- Adjust $M_{\text{xM,total}}$ as needed for specific ship/engine fits.
+- Total ship idle draw = (number of engines) × (per-engine value).
+
+---
+
+## FTL Engine Waste Heat (Idle and Peak)
+
+The following table provides estimated waste heat output for each FTL engine class, both at idle and during peak (spin-up) operation. This waste heat is separate from xM friction/thermal loads and must be managed by the ship’s coolant system.
+
+| Engine Class | Idle Power Draw (kW) | Idle Waste Heat (kW) | Spin-Up Power (MW) | Peak Waste Heat (MW) |
+|--------------|----------------------|----------------------|--------------------|---------------------|
+| Tiny         | 396                  | 396                  | 0.012              | 0.012               |
+| Small        | 864                  | 864                  | 0.156              | 0.156               |
+| Medium       | 5,940                | 5,940                | 50.8               | 50.8                |
+| Large        | 23,760               | 23,760               | 910.2              | 910.2               |
+| Huge         | 99,000               | 99,000               | 2,840              | 2,840               |
+| Titanic      | 396,000              | 396,000              | 697,957            | 697,957             |
+
+**Notes:**
+- Idle waste heat equals idle power draw (all input power becomes heat at idle).
+- Peak waste heat equals spin-up power input (all input energy is eventually dissipated as heat during spin-up).
+- The ship’s coolant system must be sized to handle these loads in addition to any xM friction/thermal loads.
+- Values are per engine; total ship waste heat = (number of engines) × (per-engine value).
+
+---
+
+## Update: Idle Power Draw Now Based on Total xM Inventory
+
+**Revision:** Idle (standby/containment) power draw for each FTL engine class is now calculated using the total xM inventory in the engine (cylinders + buffer tank), not just the wet-line prime mass. This better reflects the containment and readiness burden for all active xM within the engine system.
+
+**Formula:**
+- $P_{\text{idle}} = 15~\text{kW} \times M_{\text{xM,total}}$
+- Where $M_{\text{xM,total}}$ is the total xM mass in the engine (cylinders + buffer tank), in kg.
+
+**Example Idle Draws (per engine):**
+| Engine Class | Cylinder Capacity (kg) | Buffer Tank (kg) | Total xM (kg) | Idle Power Draw (kW) |
+|--------------|-----------------------|------------------|---------------|---------------------|
+| Tiny         | 2.4                   | 24               | 26.4          | 396                 |
+| Small        | 9.6                   | 48               | 57.6          | 864                 |
+| Medium       | 36                    | 360              | 396           | 5,940               |
+| Large        | 144                   | 1,440            | 1,584         | 23,760              |
+| Huge         | 600                   | 6,000            | 6,600         | 99,000              |
+| Titanic      | 2,400                 | 24,000           | 26,400        | 396,000             |
+
+**Notes:**
+- Buffer tank is assumed to be 10× cylinder capacity for all classes (see component lists).
+- Idle draw is now significantly higher, reflecting the containment burden for all xM present in the engine.
+- Adjust $M_{\text{xM,total}}$ as needed for specific ship/engine fits.
+- Total ship idle draw = (number of engines) × (per-engine value).
+
+---
+
+## Update: FTL Engine Waste Heat Efficiency
+
+**Revision:**
+- Idle waste heat: 85% of idle power draw (15% is not immediately dissipated as heat, e.g., stored or used for non-thermal work).
+- Spin-up/peak waste heat: 75% of spin-up power input (25% is used for useful work, e.g., xM compression/containment).
+
+| Engine Class | Idle Power Draw (kW) | Idle Waste Heat (kW, 85%) | Spin-Up Power (MW) | Peak Waste Heat (MW, 75%) |
+|--------------|----------------------|---------------------------|--------------------|--------------------------|
+| Tiny         | 396                  | 337                       | 0.012              | 0.009                    |
+| Small        | 864                  | 734                       | 0.156              | 0.117                    |
+| Medium       | 5,940                | 5,049                     | 50.8               | 38.1                     |
+| Large        | 23,760               | 20,196                    | 910.2              | 682.7                    |
+| Huge         | 99,000               | 84,150                    | 2,840              | 2,130                    |
+| Titanic      | 396,000              | 336,600                   | 697,957            | 523,468                  |
+
+**Notes:**
+- Idle waste heat = 85% of idle power draw.
+- Peak waste heat = 75% of spin-up power input.
+- The rest is assumed to be used for useful work or stored in non-thermal forms.
+- Values are per engine; total ship waste heat = (number of engines) × (per-engine value).
+- The ship’s coolant system must be sized for these loads in addition to xM friction/thermal loads.
