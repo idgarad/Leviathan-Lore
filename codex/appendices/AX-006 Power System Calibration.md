@@ -60,6 +60,7 @@ This appendix collects all canonical calibration data, scaling laws, and referen
     - At idle, CDAPs are extremely efficient, drawing as little as **100 W**—just enough to power status indicators and a small integrated computer. Idle waste heat is negligible and easily managed by passive cooling.
     - This ultra-low idle draw allows CDAPs to be safely stored, transported, or even purchased at retail without special infrastructure, provided they are never fully shut down.
 - **Physical Size Reference:** For setting flavor and visual consistency, each small CDAP unit is approximately the size and form factor of a Ghostbusters proton pack—roughly 0.6 m tall, 0.4 m wide, and 0.2 m deep. This makes them compact enough for modular installation, maintenance, and dramatic on-screen presence, while still conveying advanced, high-density technology.
+See CX-016 for details on Thermal Batteries and Heat Exchangers, which manage CDAP waste heat.
 
 ---
 *This appendix is a work in progress and will be expanded as power system calibration is refined.*

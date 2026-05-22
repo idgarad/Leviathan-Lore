@@ -122,8 +122,24 @@ Where:
 #### 4.2 Cooling Law
 $$ Q_{cool} = q_A \cdot A_{ship} $$
 - $ q_A = 3.23425 \times 10^{-4}\,\text{kW/m}^2 $.
-- This results in a $\sim 180\,\text{s}$ cooldown for a Falcon-scale hull and $\sim 360\,\text{s}$ for an SDF-1-scale hull.
+- $A_{ship}$ represents the effective area of the external radiator trunks.
 
+### Module 4.3: Thermal Calibration Table
+
+| Ship Class | Scale ($k$) | $V_{bat} (4 \times V_{eng})$ | Heavy Max ($P_{H,max}$) | Light Max ($P_{L,max}$) | Input Flux ($\phi_q$) | $Q_{cool}$ ($k^2$) | $t_{cool}$ (s) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Tiny** | 0.46 | $0.80 \text{ m}^3$ | 0.38 MW | 0.04 MW | 0.44 MW/m² | 0.15 MW | 153 |
+| **Small (Falcon)** | 1.00 | $8.00 \text{ m}^3$ | 2.08 MW | 0.20 MW | 0.52 MW/m² | 0.69 MW | 181 |
+| **Medium** | 2.71 | $159 \text{ m}^3$ | 18.3 MW | 1.83 MW | 0.62 MW/m² | 5.05 MW | 217 |
+| **Large** | 9.97 | $7,928 \text{ m}^3$ | 317 MW | 31.7 MW | 0.80 MW/m² | 68.5 MW | 278 |
+| **Huge** | 32.9 | $284,800 \text{ m}^3$ | 3,975 MW | 397 MW | 0.92 MW/m² | 747 MW | 319 |
+| **Titanic** | 84.1 | $4.76 \times 10^6 \text{ m}^3$ | 30,833 MW | 3,083 MW | 1.09 MW/m² | 4,880 MW | 379 |
+
+*Notes: $P_{H,ship}$ (Black) and $P_{L,ship}$ (White) represent the aggregate ship-level thermal input capacities. $P_{L,ship}$ handles the constant-flow ECS network, which carries heat from life support, energy shields, and armor; it is calibrated to 10% of $P_{H,ship}$ for standard hulls. These capacities are achieved by installing multiple modular thermal battery units (Models WW, BB, or WB) and their associated heat exchangers.*
+
+*Notes: $V_{eng}$ (Falcon) is anchored at $2.0\text{ m}^3$. $V_{bat}$ is fixed at 4x the class-equivalent FTL engine volume. Thermal density remains a constant $250\text{ MJ/m}^3$ across all classes.*
+
+See CX-016 for a detailed breakdown of Thermal Batteries and Heat Exchangers.
 ---
 
 ### Module 5: Exotic Matter (xM) Properties

@@ -6,9 +6,9 @@ The shield system draws energy from the ship’s power grid to sustain the field
 
 ### Thermal Integration
 
-To prevent hardware failure during energy conversion, each shield emitter is serviced by a dedicated coolant loop. This loop circulates through the emitter assembly and carries the resulting thermal energy back to a primary heat exchanger.
+To prevent hardware failure during energy conversion, each shield emitter is serviced by a dedicated coolant loop. This loop circulates through the emitter assembly and carries the resulting thermal energy back to a primary heat exchanger (see CX-016).
 
-The heat exchanger dumps this load into the vessel's **thermal batteries**—the same high-capacity storage units utilized by the FTL system (see CX-013) to manage jump-friction waste heat. 
+The heat exchanger dumps this load into the vessel's **thermal batteries** via the **Light Input (White) loop**, which is shared with the ship's Environmental Control System (ECS).
 
 This creates a **Thermal Drawdown System**: The "health" of the shield is the remaining capacity of the ship's thermal batteries. 
 
@@ -66,7 +66,7 @@ When energy exceeds the shield's IAL or when the shield system is inactive, the 
 
 Unlike the shield system, which functions as a drawdown buffer, armor operates as a **Hardness Test**. The **Armor MST** is the fixed MegaJoule (MJ) rating of the plating's structural and thermal resistance.
 
-1. **Soak Threshold:** If the incoming energy (MJ) of a strike is less than or equal to the Armor MST, the armor is effectively unharmed. The plating remains structurally intact, and 100% of the strike's energy is converted into heat and conducted into the ship's **Thermal Batteries**.
+1. **Soak Threshold:** If the incoming energy (MJ) of a strike is less than or equal to the Armor MST, the armor is effectively unharmed. The plating remains structurally intact, and 100% of the strike's energy is converted into heat and conducted into the **Light Input (White) loop** of the ship's thermal batteries.
 2. **Overwhelming the Plate:** If the strike energy exceeds the Armor MST, the armor fails to negate the force. In this event, a fixed percentage ($x\%$) of the damage is absorbed by the armor (causing structural degradation), while the remaining energy passes through to the internal hull frame.
 
 ### Unified Structural Integrity
@@ -79,7 +79,7 @@ For operational and engineering simplicity, **Armor and Hull are treated as a Un
   - **Megastructures (k \ge 160):** $\chi \to 95\%$.
 - **Heat Generation:** Even during structural failure, the armor continues to conduct its maximum rated MST as heat into the batteries until the plating is entirely stripped.
 
-*Lore Note: While Structural Integrity (SI) serves as the primary "Hit Point" bucket for gameplay, the **Thermal Batteries** are the true strategic constraint in Leviathan lore. Due to the high efficiency of the Armor MST soak, batteries often reach 100% capacity from converted strike energy long before the physical hull is breached.*
+*Lore Note: While Structural Integrity (SI) serves as the primary "Hit Point" bucket for gameplay, the **Thermal Batteries** are the true strategic constraint—the real "HP"—in Leviathan lore. Because Armor MST soaks are so efficient at converting kinetic and radiant energy into heat, the primary risk in combat is not ship destruction, but **cooking the crew alive**. A ship reaching 100% thermal saturation becomes an uninhabitable oven, forcing a retreat or surrender regardless of how much armor is left.*
 
 ### Field Repair and Structural Breakpoints
 
@@ -210,3 +210,213 @@ Shield emitters are classified into standardized power bins. Larger hulls typica
 | **Titanic** | $P_i \ge 100,000~\text{kW}$ |
 
 *Note: While shield emitters are standard hull components, they are often mixed in size—using large emitters for broad hull faces and smaller units for contour closure and redundancy pockets.*
+
+## Fire Control: The Valid Firing Solution (VFS)
+
+In accordance with the "Math Holds" axiom (CX-000) and Imperial safety protocols, no offensive weapon system or **thermal mass ejection system** may discharge without a **Valid Firing Solution (VFS)**. This software-hardware interlock prevents collateral damage and ensures that missed shots or ejected ballast do not become long-term navigational hazards.
+
+A VFS is a binary "Go/No-Go" state determined by five primary criteria:
+Due to the immense complexity of calculating these variables in real-time across relativistic distances, the availability of a VFS is perceived by the crew as a **weighted random chance**. For the gunnery deck, combat is a tense "fishing expedition" for a valid corridor.
+
+### 1. The Backstop Doctrine (Gravity Well Termination)
+Every projectile or energy beam must have a "backstop"—a valid gravity well (star, gas giant, or barren world) where the round will eventually terminate if it misses the target.
+- **Logic:** The probability of a valid backstop is a product of the system-wide **Local Mass Rating ($\mu_L$)** and any immediate **Local Backstop Anchors**.
+- **Backstop Anchors:** Proximity to a large, uninhabited mass (gas giants, barren moons, dead planets, asteroids) dramatically increases VFS availability. If a target is positioned between the shooter and an uninhabited mass, that mass serves as a "primary backstop," negating the need for a distant corridor calculation.
+- **The Mass Factor:** In empty space, the VFS is a "fishing expedition" for a distant corridor. Near a massive barren anchor, the VFS is nearly constant.
+$$P_{backstop} = (\text{Base\_Corridor\_Chance} \times \mu_L) + \text{Anchor\_Proximity\_Weight}$$
+
+### 2. Safety Sweep (Friendly/Path Interdiction)
+The targeting computer projected ballistic path must be clear of:
+- **Friendly Hulls:** Any identified allied signature.
+- **Known Travel Paths:** Established civilian shipping lanes or gate-approach vectors.
+- **USO Facilities:** Any station or orbital infrastructure.
+
+### 3. Tracking and Kinematics
+The VFS checks the mechanical and computational ability of the weapon to actually hit the target:
+- **Turret Slew vs. Angular Velocity:** If the target's relative angular velocity exceeds the turret's maximum tracking speed, the VFS is denied.
+- **Signature Strength:** Low-observable (stealth) targets or high-interference environments degrade the lock quality.
+
+### 4. Lock Quality and Calculation
+A VFS requires a **Confirmed Lock**. This is a product of:
+- **Sensor Gain:** The ship's active and passive sensor suites.
+- **Skill Modifiers:** The proficiency of the gunnery officer or the quality of the targeting AI.
+- **Equipment Modifiers:** Specialized hardware like fire-control computers or predictive lead-trackers.
+
+### Mathematical Summary
+A firing solution is valid ($VFS = 1$) only if all boolean checks return true:
+$$VFS = (\text{Lock\_Confirmed}) \land (\text{Track\_Possible}) \land (\text{Safety\_Clear}) \land (\text{Backstop\_Found})$$
+
+### Tactical Implications
+
+*   **RNG as Tactical Opportunity:** In the Leviathan setting, RNG does not represent damage variance (which is physically determined by yields), but rather the opportunity to fire. Combat is a **tense waiting game** or "dance," where pilots maneuver specifically to fish for a VFS window.
+*   **LMR as a Tactical Variable:** Combat in high-LMR systems (like Sol) is fast and aggressive because VFS windows are frequent and wide. In "Light" systems, combat is a slower, more deliberate hunt for a corridor that aligns the target with a valid gravity-well backstop.
+*   **Non-Reactionary Heat Dumping:** Because **DTBM ejection** (see CX-016) is VFS-bound, it is not a reactionary action. In complex or low-mass environments, a ship may have to wait minutes or hours for a valid window to dump ballast, making thermal management a proactive discipline rather than an emergency response.
+*   **Anchor-Fighting:** Tactical commanders will favor engagements near barren moons or asteroids. By using a local mass as a "VFS Anchor," they can maintain a green firing solution regardless of their orientation to the rest of the solar system.
+*   **Gas Giant Graveyards:** Gas giants are the premier tactical choice for irregular combatants and pirates. Because they are universally uninhabitable and possess massive gravity wells, they provide a nearly infallible backstop from almost any angle of approach. Fighting in the "high orbit" of a gas giant effectively removes the VFS constraint, turning the engagement into a high-intensity brawl.
+*   **VFS "Sniping":** Skilled pilots will attempt to maneuver so that the enemy has no valid backstop, effectively "de-arming" their opponent by denying them a VFS.
+*   **The "VFS Override":** In extreme emergencies (Life-or-Death), a Warden may authorize a **VFS Override**. This is a serious legal event; the commanding officer is personally and financially liable for the entire flight path of any rounds fired without a VFS. This is often treated as a "War Crime" if a stray slug eventually hits a civilian structure.
+
+## Weapon Classes
+
+Imperial offensive systems are categorized by their delivery mechanism and their relationship with the ship's energy and thermal budgets.
+
+### 1. Kinetics (Rail Cannons)
+*   **Mechanism:** Electromagnetic acceleration of physical munitions.
+*   **Input:** Stored Mass (Ammo) + Low CDAP Power.
+*   **Primary Vector:** Impact (High MJ).
+*   **Economic Cost:** **Moderate.** While the munitions are relatively simple, the weapon systems themselves are expensive due to the requirement for high-precision articulating turrets and heavy-duty electromagnetic rail maintenance.
+*   **Physics:** Kinetics are the most efficient weapon class for a ship’s thermal budget.
+    *   **The 1/99 Rule:** For every shot fired, the ship absorbs **1%** of the energy as waste heat (Ohmic resistance/friction), while **99%** is converted into the kinetic energy of the slug.
+*   **Munition Composition (The Null-Core):** Standard kinetic rounds are full-metal jacketed slugs containing a **Null-Core** (approx. 2% of total mass) and dual fuses. 
+    *   **Active VFS Fuse:** Upon firing, the specific VFS parameters are encoded into the round's primary active fuse. If the round impacts a target, misses, or drifts outside the authorized VFS corridor, the null-core detonates. 
+    *   **Plasma Conversion:** Detonation converts the solid slug into a high-energy plasma cloud. This cloud becomes a "thermal nuisance" within seconds and fully disperses within 24 hours, effectively scrubbing the projectile from the vacuum and preventing long-term navigational hazards.
+        *   **Plasma Cloud Morphology:** Missed shots, where the null-core detonates in open space, produce perfectly spherical plasma clouds. Direct or glancing hits, however, result in non-uniform plasma clouds due to the interaction with the target's hull or shields.
+        *   **Tactical Sensor Data:** The ignition of a null-core provides immediate, high-contrast sensor feedback. Gunnery AIs use the precise coordinates of these "miss-puffs" to calibrate lead indicators and turret tracking in real-time.
+        *   **Forensic Surveying:** The 24-hour persistence of these clouds creates a temporary "3D map" of the engagement. Survey teams (see CX-010) use these signatures as forensic evidence to reconstruct firing lines, determine the sequence of escalation, and audit VFS compliance for legal and insurance purposes.
+    *   **Mechanical TTL Fuse:** A secondary mechanical "Time-To-Live" fuse serves as a hard backup, ensuring the round terminates regardless of electronic failure.
+*   **Tactical Role:** Shield-breaking and structural puncturing. Highly effective against armor but limited by turret slew rates and projectile flight time.
+*   **Safety Redundancy:** If the null-core fails to detonate, the **Backstop Doctrine** (VFS) remains the final line of defense. Because the munition's jacket is thin, an un-detonated null-core is easily detectable by long-range sensors, allowing for post-battle hazard remediation.
+*   **Range Profile (Best):** Due to standardized rail-exit velocities and the hard mechanical TTL fuse, kinetics have a mathematically fixed maximum range. This represents the longest engagement distance for unguided direct-fire weapons in the Leviathan setting.
+
+### 2. Plasma (High-Energy Rail)
+*   **Mechanism:** Conversion of physical ammunition into high-temperature plasma, accelerated via rail conduits.
+*   **Input:** Two-part Reactive Munition + Moderate CDAP Power + Optional Thermal Feedstock.
+*   **Primary Vector:** Radiant (Moderate MW Burst).
+*   **Economic Cost:** **Highest.** Plasma systems are the most complex and expensive weapons to manufacture and maintain. The cost is driven by the sophisticated magnetic containment hardware and the synchronization required for the binary reactive ignition process.
+*   **Physics:** Plasma rounds utilize a **Binary Reactive Munition**. The projectile consists of two stable components that, when mixed and triggered by a low-energy electrical initiator, undergo a violent exothermic reaction to form plasma. 
+    *   **The 10/90 Rule:** For every plasma bolt fired, the ship absorbs **10%** of the energy as waste heat (magnetic bottle leakage), while **90%** is delivered to the bolt.
+    *   **Energy Distribution:** The bulk of the weapon’s CDAP draw is dedicated to the magnetic containment and the high-G electromagnetic acceleration of the resulting bolt.
+*   **Thermal Feedstock Interaction:** Advanced plasma launchers can be cross-linked to the ship's **Disposable Thermal Ballast Modules (DTBM)**. When active, the launcher consumes molten ballast from the DTBM shunt as secondary propellant. This allows the ship to "fire off" its waste heat, increasing the MJ yield of the plasma bolt while cooling the primary batteries.
+*   **Range Profile (Medium):** Magnetic containment stability limits the distance a plasma bolt can travel before losing coherence. Beyond medium range, the bolt dissipates into an incoherent thermal mist that is easily deflected by standard ICF fields.
+*   **Tactical Role:** Shield-overwhelming. Designed to pressure the target's $MST$ (Maximum Sustained Tank) with concentrated thermal spikes, causing rapid coolant saturation in enemy emitters.
+
+### 3. Beams (Lasers / Phasers)
+*   **Mechanism:** Directed energy emission.
+*   **Input:** Pure CDAP Power.
+*   **Primary Vector:** Radiant (Sustained MW).
+*   **Economic Cost:** **Low.** Surprisingly, beams are the least expensive class to produce. The absence of complex mechanical ammunition feeds or high-wear rail components allows for solid-state, modular construction. The true "cost" of a beam is operational rather than capital.
+*   **Physics:** Beams are the most precise but thermally expensive weapons. They operate on a "Waste Heat Recoil" model—analogous to blood magic—where the ship must "harm" its own thermal state to damage the enemy.
+    *   **The 25/75 Rule:** For every 1 MW of beam energy generated, the firing ship must dump **0.25 MW** of waste heat directly into its own **Thermal Batteries**. The remaining **0.75 MW** is delivered to the target.
+*   **Range Profile (Any Range / Falloff):** Beams can technically target anything within line-of-sight. However, they suffer from significant power falloff over distance due to beam divergence. Effective "boring" of armor requires closer proximity.
+*   **Tactical Role:** Precision cutting and sustained pressure. Because they are light-speed, they have the highest VFS uptime, but their use is limited by the firing ship's ability to stay cool.
+
+### Weapon Summary Table
+
+| Class | Input | Waste Heat ($H_{waste}$) | Range Profile | Relative Cost | Primary Target | Vector |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Kinetic** | Ammo + Low Energy | **Low (1%)** | Best (Fixed Max) | Moderate | $IAL$ / Armor | Impact |
+| **Plasma** | Ammo + Med Energy | **Med (10%)** | Medium | **High** | $MST$ / $IAL$ | Radiant (Pulse) |
+| **Beam** | Raw Energy | **High (25%)** | Any (w/ Falloff) | **Low** | $MST$ / Armor | Radiant (Sustained)|
+
+---
+
+## Structural Interaction: Armor Degradation
+
+While armor behaves as a **Hardness Test** (Armor MST), the three weapon classes interact with that structure differently over time:
+
+### Kinetic Puncturing
+Kinetics test the **Armor MST** per shot. A round either penetrates or it doesn't. Repeated hits in the same area cause structural spalling (SI damage) but do not fundamentally change the hardness of the plate until it is destroyed.
+
+### Plasma Scouring
+Plasma pulses cause localized thermal shock. This degrades the **Structural Integrity (SI)** of the armor rapidly but does not offer the "focused" penetration of a beam or a rail slug.
+
+### Beam Boring (Progressive Damage)
+Beams benefit from a unique "Boring" mechanic. Because beams are continuous Radiant attacks, they do not merely test the Armor MST; they actively degrade it. 
+*   **Thermal Soak Limit:** The longer a beam remains focused on a single target, the more it overcomes the armor's ability to conduct heat away from the impact point.
+*   **Logic:** For every continuous second of beam fire on a single target, the effective **Armor MST** of that target is reduced by a fixed percentage (e.g., 5% per second) as the Dura-Steel approaches its 1,200 K sloughing point.
+*   **Risk:** This incentivizes long firing cycles, which simultaneously fills the *firing ship's* thermal batteries due to the 25% waste heat rule.
+
+---
+
+## Guided Munition Classes
+
+Guided munitions (Missiles and Torpedoes) differ from Kinetics in that they possess onboard propulsion and guidance. However, they are still bound by the **VFS Backstop Doctrine**.
+
+### 1. Missiles (Tactical Interceptors)
+*   **Scale:** Small ($M_{norm} < 5~t$).
+*   **Propulsion:** Chemical or Solid-Fuel Boosters (High $TWR$ / Low Duration).
+*   **Guidance:** Reactive. Optimized for tracking high-angular velocity targets.
+*   **VFS Profile:** **High-Confidence Snap.** The VFS is calculated for a short, high-energy flight path.
+*   **Tactical Role:** Point defense, fighter interception, and "Module Sniping." They are designed to overwhelm an enemy's **Sustainable Flow Rate (SFR)** with a swarm of small MJ impacts.
+
+### 2. Torpedoes (Strategic Ship-Killers)
+*   **Scale:** Medium to Large ($M_{norm} > 50~t$).
+*   **Propulsion:** Ion, Plasma, or CDAP-assisted drives (Low $TWR$ / High Persistence).
+*   **Guidance:** Predictive. Optimized for long-range intercepts of Capital hulls and Stations.
+*   **VFS Profile:** **Ballistic Corridor.** The VFS must verify a much larger volume of space over a longer time horizon. A Torpedo launch is a major tactical commitment.
+*   **Tactical Role:** The "Heavy Hitter." Torpedoes carry massive payloads (Radiant or Impact) designed to exceed the **IAL** of even Capital-grade emitters in a single strike.
+
+### Munition Termination (The "Dud" Protocol)
+Guided munitions are legally required to carry the same **Null-Core** architecture as Kinetic rounds. 
+1.  **Fuel Exhaustion:** Upon running out of propellant, the munition is programmed to detonate its Null-Core immediately, converting to a harmless plasma cloud.
+2.  **Lost Lock:** If the guidance system loses its Valid Firing Solution (e.g., the target maneuvers behind a friendly ship), the munition must "Self-Scrub." 
+3.  **VFS Enforcement:** A munition that fails to self-destruct after losing a VFS is considered a "Rogue Asset," and the firing ship's Warden is held liable for any downstream damage.
+
+### Payload Types
+Guided munitions can be fitted with various warheads to match specific **Damage Vectors**:
+*   **HE-Impact:** Traditional explosive/kinetic. Targets **IAL**.
+*   **Radiant-Pulse:** A single-use plasma or thermal burst. Targets **MST**.
+*   **Ion-Interference:** Phase-matched EM burst. Targets **$\eta_{shield}$**.
+
+| Feature | Missile | Torpedo |
+| :--- | :--- | :--- |
+| **Acceleration** | Extremely High | Low to Moderate |
+| **Persistence** | Low (Seconds) | High (Minutes/Hours) |
+| **Agility** | High | Low |
+| **Typical Target** | Fighters / Escorts | Capital Ships / Stations |
+| **VFS Complexity** | Low (Short horizon) | High (Long horizon) |
+| **Payload Vector** | Impact / Interference | Impact / Radiant |
+
+---
+
+## Structural Interaction: Armor Degradation
+
+While armor behaves as a **Hardness Test** (Armor MST), the three weapon classes interact with that structure differently over time:
+## Damage Vectors
+
+To bridge the gap between naval engineering and tactical doctrine, all offensive weaponry is categorized into three primary **Damage Vectors**. These vectors dictate how incoming energy interacts with the ship's shield and thermal architecture.
+
+### 1. Impact Vector (Kinetic / Explosive)
+*   **Primary Target:** $IAL$ (Emitter Thermal Buffer)
+*   **Metric:** High MJ / Low $t$ (Duration)
+*   **Physics:** These weapons (Railguns, Autocannons, Torpedoes) deliver massive energy packets instantly. Because the impact duration is nearly zero, the ship's $MST$ (coolant cycling) provides negligible benefit. 
+*   **Tactical Role:** The "Alpha Strike." Designed to punch through the static IAL buffer and cause immediate "leakage" damage to the hull armor.
+
+### 2. Radiant Vector (Thermal / Directed Energy)
+*   **Primary Target:** $MST$ (Maximum Sustained Tank)
+*   **Metric:** High MW (Sustained Rate) / High $t$ (Duration)
+*   **Physics:** These weapons (Lasers, Phasers, Beams) deliver energy continuously. They pressure the emitter's ability to cycle coolant to the batteries.
+*   **Tactical Role:** The "Pressure Cooker." Designed to exceed the ship's $MST$, slowly draining the IAL buffer over time and filling the ship's thermal batteries to force a retreat or a shield collapse.
+
+### 3. Interference Vector (Electromagnetic / Ion)
+*   **Primary Target:** $\eta_{shield}$ (Conversion Efficiency)
+*   **Metric:** Phase-Matched Energy
+*   **Physics:** Interference weapons (Ion Cannons, EM-Pulses) do not rely on raw energy to break a shield. Instead, they introduce "Phase Jitter" into the bubble's tension logic. This effectively lowers the ship's **Shield Efficiency ($\eta_{shield}$)**.
+*   **Tactical Role:** The "Efficiency Stripper." A ship under interference fire must draw significantly more power from its CDAPs to sustain the same MST. This is used to "brown out" an enemy vessel, forcing them to choose between maintaining shields or powering their engines and weapons.
+
+## Shield Emitter Idle Power Draw
+
+- Each shield emitter requires a continuous baseline (idle) power draw to maintain the shield field, even when not under attack.
+- This idle draw is measured in megawatts (MW) and is present at all times while the shield system is active.
+- Idle draw scales with emitter size/class:
+    - **Small Emitter:** (placeholder) 0.5 MW
+    - **Medium Emitter:** (placeholder) 1 MW
+    - **Large Emitter:** (placeholder) 2 MW
+    - **Capital Emitter:** (placeholder) 4 MW
+    - **Titanic Emitter:** (placeholder) 8 MW
+- The total idle power load is the sum of all active emitters on the vessel.
+- This persistent load must be factored into the ship’s power budget and is a key consideration for long-duration operations, especially for civilian or lightly-crewed vessels.
+- These values are subject to adjustment as engineering standards are refined.
+
+---
+
+## Combat Debris Accumulation and Shield Risk
+
+- In high-intensity combat, debris from destroyed ships, armor spall, and missed shots accumulates rapidly, creating a hazardous environment.
+- As debris density increases, the risk of random, high-energy impacts on the shield system rises.
+- For simulation and gameplay, this can be represented by a dynamic “Debris Rating” for each combat zone or location.
+- Periodically, random debris impacts should be simulated as hits to the shield, with energy and frequency scaling with the local Debris Rating.
+- If the cumulative debris energy exceeds the shield’s Maximum Sustained Tank (MST) or emitter Instantaneous Absorption Limit (IAL), excess energy will leak through to the armor or hull.
+- As the Debris Rating escalates, shields may become overwhelmed or useless, forcing reliance on armor hardness and structural integrity to survive.
+- This mechanic models the increasing danger of prolonged combat in debris-rich environments and incentivizes tactical withdrawal or debris-clearing actions.
+- Implementation of this risk is recommended for realism and emergent gameplay, but is not required for all scenarios.
