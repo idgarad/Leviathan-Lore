@@ -46,13 +46,20 @@ The reference density is derived from the SDF-1 Macross at standard displacement
 - **Reference Density ($\rho_{ref}$):** $\mathbf{0.096128\,\text{t/m}^3}$
 
 #### 1.2 Density Families
-To account for varying ship roles (e.g., hollow carriers vs. dense battleships), we apply multipliers to $\rho_{ref}$:
+Density Families are descriptive outcomes of a ship's internal configuration (Phase 2 Design). They describe the final mass-to-volume ratio after the ESH has been fitted with a custom spine and modules:
 | Family | Density ($\rho$) | Logic |
 | :--- | :--- | :--- |
 | **Light** | $0.0721\,\text{t/m}^3$ | Hollow hulls, carriers, habitat-heavy explorers. |
 | **Medium** | $0.0961\,\text{t/m}^3$ | Standard multi-role vessels (Default). |
 | **Heavy** | $0.1202\,\text{t/m}^3$ | Armor-dense combatants, industrial mining bricks. |
 | **Titanic** | $0.0961\,\text{t/m}^3$ | Megastructures (Normalized to medium for scale). |
+
+#### 1.3 Scaling Procedures for External Franchises
+To reconcile ships designed for non-human or capsule-based operation (where internal void space is negligible), the following scaling laws apply:
+
+1. **EVE Online (Capsuleer Standard):** All EVE Online hulls shall be scaled by a linear factor of **1.41** ($\sqrt{2}$) to provide the internal volume required for USO-standard habitability and manual engineering access. 
+   - **Volumetric Increase:** $1.41^3 \approx 2.82$. 
+   - **ICS Ratio:** The resulting scale creates an internal distribution of roughly 35% machinery and 65% habitable void, aligning these hulls with the **Light to Medium** Density Families defined in Chapter 7 of CX-999.
 
 ---
 
@@ -181,6 +188,7 @@ The following table records the eighteen ships used to anchor the current calibr
 | **Ship** | **$M_{norm}$ ($t$)** | **Engine Config** | **Spin-Up** | **Yield Limit** | **Max Cruise (Sol)** |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Millennium Falcon** | $505$ | 1x Small | $5$ s | $6.20$ MN | $300$ m/s |
+| **Enterprise-D** | $419,000$ | 3x Large | $38$ s | $11.25$ MN | $145$ m/s |
 | **Discovery One** | $3,823$ | 1x Medium | $56$ s | $2.10$ MN | $134$ m/s |
 | **Serenity** | $9,837$ | 2x Medium | $42$ s | $4.20$ MN | $215$ m/s |
 | **White Base** | $474,308$ | 3x Large | $25$ s | $11.25$ MN | $132$ m/s |
@@ -192,7 +200,9 @@ The following table records the eighteen ships used to anchor the current calibr
 | **Supremacy (Mega)** | $306 \times 10^9$ | 2x Titanic | $30$ s | $29.00$ MN | $0.8$ m/s |
 | **Death Star** | $206 \times 10^{12}$ | 20x Titanic | $32$ s | $290.00$ MN | $0.1$ m/s |
 
-*Note: Spin-up calculations use the duty cylinder counts specified in AX-005 for each class (e.g., 1 for Small, 3 for Medium, 4 for Large, 8 for Huge, 16 for Titanic).*
+*Note: The Enterprise-D is calibrated as a **Light Density Family** explorer ($V_{ics}/V_{env} \approx 0.50$). With an envelope volume of $5.82 \times 10^6 \text{ m}^3$, it supports a theoretical maximum of **4,490 SCUs**.*
+
+*Spin-up calculations use the duty cylinder counts specified in AX-005 for each class (e.g., 1 for Small, 3 for Medium, 4 for Large, 8 for Huge, 16 for Titanic).*
 
 ---
 

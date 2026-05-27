@@ -1,3 +1,231 @@
+# Combat Equations Reference
+
+This section consolidates all major combat-related equations from the Leviathan Lore corpus, including shield, armor, thermal, VFS, and damage mechanics. Each formula is presented in both classical mathematical notation and Python-style pseudocode for clarity.
+
+---
+
+## 1. Shield System
+
+### Emitter and Layer Count
+$$N_{emit} = \lceil (2 \times A_{box}) / A_{patch,i} \rceil$$
+$$N_{layers} = 2 \times N_{emit}$$
+```python
+N_emit = math.ceil(2 * A_box / A_patch_i)
+N_layers = 2 * N_emit
+```
+
+### Emitter Cooling Capacity (Coupling Limit)
+$$E_{couple,emit} = \text{Emitter Cooling Capacity (MJ)}$$
+$$E_{couple,total} = N_{emit} \times E_{couple,emit}$$
+```python
+E_couple_emit = emitter_cooling_capacity_MJ
+E_couple_total = N_emit * E_couple_emit
+```
+
+### Strike Absorption and Overpenetration
+$$E_{absorbed} = \min(E_{strike}, E_{couple,emit})$$
+$$E_{glance} = \max(0, E_{strike} - E_{couple,emit})$$
+```python
+E_absorbed = min(E_strike, E_couple_emit)
+E_glance = max(0, E_strike - E_couple_emit)
+```
+
+### Sustainable Flow Rate (SFR) and Maximum Sustained Tank (MST)
+$$SFR_i = P_i \times \kappa_{flow}$$
+$$MST = \sum SFR_i$$
+```python
+SFR_i = P_i * kappa_flow
+MST = sum(SFR_i for each emitter)
+```
+
+### Shield Efficiency and Power Draw
+$$\eta_{shield} = \eta_{base} \times k^{-0.4}$$
+$$P_{draw} = \frac{\text{Incoming DPS}}{\eta_{shield}}$$
+```python
+eta_shield = eta_base * k ** -0.4
+P_draw = incoming_DPS / eta_shield
+```
+
+### Deflection and Transversal Velocity
+$$\theta_{deflect} \propto N_{layers} \times v_{trans}$$
+```python
+theta_deflect = proportionality_constant * N_layers * v_trans
+```
+
+---
+
+## 2. Armor and Hull
+
+### Armor MST (Hardness Test)
+If $E_{strike} \leq MST_{armor}$: full soak, no penetration.
+If $E_{strike} > MST_{armor}$: partial soak, pass-through.
+
+### Structural Absorption Rate
+$$\chi = \text{Absorption % by scale}$$
+```python
+# Example for small hull
+chi = 0.6  # 60% absorbed, 40% passes to hull
+```
+
+### Armor Degradation (Beam Boring)
+$$MST_{current} = MST_{base} \times (1 - 0.05 \times t_{beam})$$
+```python
+MST_current = MST_base * (1 - 0.05 * t_beam)
+```
+
+---
+
+## 3. Thermal and Battery
+
+### Thermal Battery Accumulation
+$$B_{th,new} = B_{th,old} + E_{absorbed} + H_{waste}$$
+```python
+B_th_new = B_th_old + E_absorbed + H_waste
+```
+
+### Thermal HP and Critical Broil
+If $B_{th} \geq B_{th,max}$: ship is forced to retreat or surrenders.
+
+---
+
+## 4. Weapon Classes and Waste Heat
+
+### Kinetic (Railgun)
+$$H_{waste} = 0.01 \times E_{shot}$$
+```python
+H_waste = 0.01 * E_shot
+```
+
+### Plasma
+$$H_{waste} = 0.10 \times E_{shot}$$
+```python
+H_waste = 0.10 * E_shot
+```
+
+### Beam
+$$H_{waste} = 0.25 \times E_{shot}$$
+```python
+H_waste = 0.25 * E_shot
+```
+
+---
+
+## 5. VFS (Valid Firing Solution)
+
+### VFS Boolean Logic
+$$VFS = (\text{Lock\_Confirmed}) \land (\text{Track\_Possible}) \land (\text{Safety\_Clear}) \land (\text{Backstop\_Found})$$
+```python
+VFS = lock_confirmed and track_possible and safety_clear and backstop_found
+```
+
+### Backstop Probability
+$$P_{backstop} = (\text{Base\_Corridor\_Chance} \times \mu_L) + \text{Anchor\_Proximity\_Weight}$$
+```python
+P_backstop = (base_corridor_chance * mu_L) + anchor_proximity_weight
+```
+
+---
+
+## 6. Repair and Breakpoints
+
+### Armor Repair Limit
+Field repair can only restore SI up to the next 5% boundary above the current damage state.
+
+---
+
+This reference ensures all major combat calculations are consolidated in one place for easy lookup and implementation.
+# Formal Shield System Equations
+
+This section summarizes the key equations governing the combined deflector shield system, presented in both classical mathematical notation and Python-style pseudocode for clarity.
+
+---
+
+## 1. Emitter and Layer Count
+
+$$N_{emit} = \lceil (2 \times A_{box}) / A_{patch,i} \rceil$$
+$$N_{layers} = 2 \times N_{emit}$$
+
+```python
+# Number of emitters and layers
+N_emit = math.ceil(2 * A_box / A_patch_i)
+N_layers = 2 * N_emit
+```
+
+---
+
+## 2. Emitter Cooling Capacity (Coupling Limit)
+
+Each emitter can absorb up to its cooling capacity per strike:
+
+$$E_{couple,emit} = \text{Emitter Cooling Capacity (MJ)}$$
+$$E_{couple,total} = N_{emit} \times E_{couple,emit}$$
+
+```python
+# Per-emitter and total coupling (cooling) capacity
+E_couple_emit = emitter_cooling_capacity_MJ
+E_couple_total = N_emit * E_couple_emit
+```
+
+---
+
+## 3. Strike Absorption and Overpenetration
+
+For a strike of energy $E_{strike}$:
+
+$$E_{absorbed} = \min(E_{strike}, E_{couple,emit})$$
+$$E_{glance} = \max(0, E_{strike} - E_{couple,emit})$$
+
+```python
+# Absorbed and glancing (overpenetrating) energy per emitter
+E_absorbed = min(E_strike, E_couple_emit)
+E_glance = max(0, E_strike - E_couple_emit)
+```
+
+---
+
+## 4. Sustainable Flow Rate (SFR) and Maximum Sustained Tank (MST)
+
+$$SFR_i = P_i \times \kappa_{flow}$$
+$$MST = \sum SFR_i$$
+
+```python
+# Sustainable Flow Rate and MST
+SFR_i = P_i * kappa_flow
+MST = sum(SFR_i for each emitter)
+```
+
+---
+
+## 5. Shield Efficiency and Power Draw
+
+$$\eta_{shield} = \eta_{base} \times k^{-0.4}$$
+$$P_{draw} = \frac{\text{Incoming DPS}}{\eta_{shield}}$$
+
+```python
+# Shield efficiency and power draw
+eta_shield = eta_base * k ** -0.4
+P_draw = incoming_DPS / eta_shield
+```
+
+---
+
+## 6. Deflection and Transversal Velocity
+
+The probability or degree of deflection increases with the number of layers and the transversal velocity $v_{trans}$:
+
+$$\theta_{deflect} \propto N_{layers} \times v_{trans}$$
+
+```python
+# Deflection angle (proportional)
+theta_deflect = proportionality_constant * N_layers * v_trans
+```
+
+---
+
+These equations provide a clear, actionable framework for both simulation and gameplay implementation.
+# Transversal Velocity and Deflection
+
+The effectiveness of shield deflection is also influenced by the transversal (relative) velocity of incoming projectiles. Higher transversal or angular velocity increases the rate at which the shield layers can alter the trajectory of an attack, making deflection more likely. In practical terms, fast-moving or glancing shots with high relative velocity to the shield surface are more likely to be deflected before imparting significant heat, while slow or direct strikes are more likely to be absorbed or penetrate if they exceed emitter capacity. This factor should be considered in both tactical doctrine and simulation.
 # Energy Shield System
 
 The energy shield system creates a protective bubble around the ship by projecting an energy-to-heat conversion field. This field is generated by a network of shield emitters embedded throughout the hull structure. Unlike FTL emitters, shield emitters are a standard, integral component of all ship hulls. As such, their presence does not require special architectural consideration during ship design or construction.
@@ -105,93 +333,60 @@ Physical armor responds differently to the three primary damage vectors compared
 ### Hull Integrity and Breach
 The **Structural Hull Frame** is the final layer protecting the crew and internal modules. While armor is designed to be ablative (sacrificial), hull damage represents a compromise of the ship's engineering spine.
 
-Damage to the hull frame results in:
-- **Atmospheric Venting:** Loss of cabin pressure and life support.
-- **System Malfunction:** Severed wiring harnesses, coolant line ruptures, and sensor misalignment.
-- **FTL Decoupling Risk:** Structural damage to the engine mounts can lower the vessel's **C_bind** (Binding Capacity), making high-G maneuvers or FTL spin-up increasingly dangerous (see CX-013).
 
-## Offensive Systems: Damage Vectors
-
-To bridge the gap between naval engineering and tactical doctrine, all offensive weaponry is categorized into three primary **Damage Vectors**. These vectors dictate how incoming energy interacts with the ship's shield and thermal architecture.
-
-### 1. Impact Vector (Kinetic / Explosive)
-*   **Primary Target:** $IAL$ (Emitter Thermal Buffer)
-*   **Metric:** High MJ / Low $t$ (Duration)
-*   **Physics:** These weapons (Railguns, Autocannons, Torpedoes) deliver massive energy packets instantly. Because the impact duration is nearly zero, the ship's $MST$ (coolant cycling) provides negligible benefit. 
-*   **Tactical Role:** The "Alpha Strike." Designed to punch through the static IAL buffer and cause immediate "leakage" damage to the hull armor.
-
-### 2. Radiant Vector (Thermal / Directed Energy)
-*   **Primary Target:** $MST$ (Maximum Sustained Tank)
-*   **Metric:** High MW (Sustained Rate) / High $t$ (Duration)
-*   **Physics:** These weapons (Lasers, Phasers, Beams) deliver energy continuously. They pressure the emitter's ability to cycle coolant to the batteries.
-*   **Tactical Role:** The "Pressure Cooker." Designed to exceed the ship's $MST$, slowly draining the IAL buffer over time and filling the ship's thermal batteries to force a retreat or a shield collapse.
-
-### 3. Interference Vector (Electromagnetic / Ion)
-*   **Primary Target:** $\eta_{shield}$ (Conversion Efficiency)
-*   **Metric:** Phase-Matched Energy
-*   **Physics:** Interference weapons (Ion Cannons, EM-Pulses) do not rely on raw energy to break a shield. Instead, they introduce "Phase Jitter" into the bubble's tension logic. This effectively lowers the ship's **Shield Efficiency ($\eta_{shield}$)**.
-*   **Tactical Role:** The "Efficiency Stripper." A ship under interference fire must draw significantly more power from its CDAPs to sustain the same MST. This is used to "brown out" an enemy vessel, forcing them to choose between maintaining shields or powering their engines and weapons.
-
-## Shield Emitter Specifications
-
-To ensure total hull coverage, shield emitters follow the same Intrinsic Coupling Field (ICF) scaling laws as FTL emitters (see CX-013).
-
-### Scaling and Coverage Math
-
-The effective coverage and thermal capacity of a shield emitter is determined by its power rating ($P_i$):
-
-- **Nominal Bubble Diameter:** $d_i = 2 \times \sqrt{P_i / 1~\text{kW}}~\text{m}$
-- **Coverage Patch Area:** $A_{\text{patch},i} = \pi \times P_i$ (where $P_i$ is in kW)
-
-### Absorption Calibration
-
-To ensure mathematical consistency across all combat systems, the **MegaJoule (MJ)** is the standardized unit for "Damage Amounts" (total energy transfer) and "Capacity" (buffer size). The **MegaWatt (MW)** is utilized strictly as a measure of "Rate" (Energy per second).
-
-- **Impact Damage:** Measured in **MJ**.
-- **Continuous Damage (DPS):** Measured in **MW** (MJ/s).
-
-Shield performance is calibrated by the emitter's power rating ($P_i$):
-
-1. **Instantaneous Absorption Limit ($IAL_{max}$):** The maximum "Static" MJ buffer per emitter (Localized Hit Points).
-   $$IAL_{max} = P_i \times \kappa_{burst}$$
-   *Baseline $\kappa_{burst} = 0.5$ MJ/kW*
-
-2. **Sustainable Flow Rate ($SFR_i$):** The regeneration rate of an individual emitter's buffer.
-   $$SFR_i = P_i \times \kappa_{flow}$$
-   *Baseline $\kappa_{flow} = 10.0$ (Unitless ratio)*
-
-3. **Maximum Sustained Tank ($MST$):** The vessel's total continuous MW "Soak" limit (Standard Active Array).
-   $$MST = \sum (SFR_i)$$
-
-4. **Shield Efficiency ($\eta_{shield}$):** The conversion ratio based on the ship's linear scale factor ($k$) relative to the Falcon.
    $$\eta_{shield} = \eta_{base} \times k^{-0.4}$$
+
    *Baseline $\eta_{base} = 3.0$*
+
+
 
 ### Reference Hull Calibration
 
+
+
 The following table illustrates standard (non-overloaded) shield performance across anchors from AX-004.
 
+
+
 | Ship (AX-004) | Scale ($k$) | Emitter Class | Efficiency ($\eta$) | Emitters ($R_{red}=2$) | System IAL (MJ) | System MST (MW) | Overload IAL (MJ) | Overload MST (MW) |
+
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+
 | **Millennium Falcon** | 1 | Small ($100$ kW) | 3.00 | 18 | 900 | 18 | 1,800 | 36 |
+
 | **Serenity** | 2.3 | Medium ($1,000$ kW) | 2.15 | 6 | 3,000 | 60 | 6,000 | 120 |
+
 | **Discovery One** | 4.0 | Medium ($1,000$ kW) | 1.72 | 8 | 4,000 | 80 | 8,000 | 160 |
+
 | **White Base** | 5 | Huge ($10,000$ kW) | 1.57 | 8 | 40,000 | 800 | 80,000 | 1,600 |
+
 | **SDF-1 Macross** | 20 | Titanic ($100,000$ kW)| 0.91 | 15 | 750,000 | 15,000 | 1,500,000 | 30,000 |
+
 | **Venator SD** | 32.5 | Titanic ($100,000$ kW) | 0.75 | 12 | 600,000 | 12,000 | 1,200,000 | 24,000 |
+
 | **Spirit of Fire** | 70 | Titanic ($100,000$ kW) | 0.55 | 64 | 3,200,000 | 64,000 | 6,400,000 | 128,000 |
+The power required to sustain the MST is determined by the shield's efficiency:
+$$P_{draw} = \frac{Incoming~DPS}{\eta_{shield}}$$
+Where $\eta_{shield}$ is the variable efficiency of the hull's specific scale.
+
 | **Infinity (UNSC)** | 160 | Titanic ($100,000$ kW) | 0.39 | 319 | 15,950,000 | 319,000 | 31,900,000 | 638,000 |
+
 | **Supremacy** | 1,700 | Titanic ($100,000$ kW) | 0.15 | ~500,000 | 25,000,000,000 | 500,000,000 | 50,000,000,000 | 1,000,000,000 |
+
 | **Death Star** | 4,600+ | Titanic ($100,000$ kW)| ~0.10 | ~1.6 Million | 80,000,000,000 | 1,600,000,000 | 160,000,000,000 | 3,200,000,000 |
+$$N_{emit} = \lceil (2 \times A_{box}) / A_{patch,i} \rceil$$
+Total shield layers = $2 \times N_{emit}$.
+
+
 
 ***Note on Megastructures:*** *As seen with the Death Star, efficiency decays to the point where the power required to maintain the bubble far exceeds the energy it blocks. At this scale, vessels rely on planetary-grade armor and point-defense arrays rather than energy envelopes.*
 
 
+
 ### Redundancy Doctrine
 
-Standard Imperial naval architecture mandates a **dual-redundant** ($R_{\text{red}} = 2$) shield configuration. The number of emitters required is calculated by:
 
-$$N_{\text{emit}} = \lceil (2 \times A_{\text{box}}) / A_{\text{patch},i} \rceil$$
+
 
 Where $A_{\text{box}}$ is the estimated surface area of the ship's service envelope.
 

@@ -471,6 +471,32 @@ The post-ILH compile output shall include a penetration report identifying every
 
 No project may proceed beyond the ILH compile gate unless the penetration report is complete, traceable to current design revision, and accepted in the project compliance file.
 
+### 102.50A Volume-Normalized Mass (VNM) and Scaling Integration
+
+All vessel designs shall be calibrated against the Volume-Normalized Mass (VNM) standards defined in **AX-004**. 
+
+1. **Linear Scale Factor (k):** The ship compiler shall calculate the vessel's linear scale factor ($k$) relative to the Falcon-class baseline ($L=34.75m$). This factor shall be used to derive all secondary system requirements, including thermal capacity, power output, and engine volume.
+2. **Structural Volume Verification:** The compiler shall verify that the gross hull envelope provides sufficient internal volume for the following mandatory ratios:
+   - **Thermal Battery Volume ($V_{bat}$):** Not less than 4x the volume of the class-equivalent FTL engine ($V_{eng}$).
+   - **Machinery Enclosure:** FTL activation and CDAP generation systems shall occupy a contiguous engineering citadel protected by ISH/ESH layers.
+
+### 102.50B Surface Area and Rejection Infrastructure (Radiator Trunks)
+
+To comply with the thermal rejection laws in **CX-016**, every hull shall provide a minimum **Effective Rejection Area ($A_{ship}$)**.
+
+1. **Radiator Trunk Placement:** Drag-tolerant heat-exchanger trunks shall be integrated into the ESH layer as armored, recessed, or longitudinal panels.
+2. **Minimum Rejection Area:** The total area of installed radiator trunks shall satisfy the cooling rate ($Q_{cool}$) required for the ship's class-normalized mass:
+   $Q_{cool} \ge q_A \cdot A_{ship}$
+3. **Obstruction Doctrine:** Radiator trunks shall be placed to ensure that 90% of their radiant face remains unobstructed by external mounts, weapons, or docked craft during standard FTL cooldown windows.
+
+### 102.50C Field Geometry and Emitter Occlusion
+
+Hull generation shall prioritize "Field Continuity" for both Intrinsic Coupling Fields (FTL) and Energy Shields.
+
+1. **Patch Overlap Requirement:** Emitters shall be distributed across the ESH so that every point on the hull surface is covered by at least two (2) overlapping ICF bubbles ($R_{red} = 2$).
+2. **Occlusion Check:** The ship compiler shall perform a line-of-sight check from every emitter node. Any hull protrusion (turrets, sensor masts, nacelles) that occludes more than 15% of an emitter's patch area shall require the installation of supplemental "Contour Emitters" to close the gap.
+3. **Geometric Complexity Limit:** Hulls with high "Fractal Depth" or irregular silhouettes that require more than 1.5x the standard emitter count per $A_{box}$ are non-compliant and must be structurally streamlined.
+
 ## Chapter 3. ISH and NHS Layer with Post-NHS Compile Gate
 
 #### 102.51 Interior Structural Hull (ISH) Definition
@@ -932,6 +958,19 @@ For every assigned mission class, compile and certification records shall identi
 
 Where mission-class supplemental requirements conflict, the adjudicated resolution shall be documented as a controlled certification artifact prior to operational release.
 
+### 105.12 Frame-Specific Volumetric Ratios
+
+The ratio of Interior Conditioned Space (ICS) to Gross Envelope Volume ($V_{env}$) is determined by the specific configuration of the internal spine and modules. The resulting **Density Family** is a descriptive outcome of this internal fit-out (see **AX-004**).
+
+| Density Family | ICS Volumetric Ratio ($V_{ics} / V_{env}$) | Current Reading |
+| :--- | :---: | :--- |
+| **Light** | 0.40 - 0.55 | Carriers, Explorers, Habitat-heavy frames. |
+| **Medium** | 0.25 - 0.40 | Standard multi-role and civilian frames. |
+| **Heavy** | 0.15 - 0.25 | Armor-dense battleships, industrial bricks. |
+
+The remaining volume in the gross envelope is reserved for the NHS (Non-Habitable Space), ESH infrastructure, armor lattices, and engine-thermal citadels.
+
+
 ## Chapter X. USO Infrastructure Access and Safety Requirements
 
 ### X.1 General Safety Provisions
@@ -977,9 +1016,10 @@ All habitable starship infrastructure and engineering spaces (excluding Tiny-cla
 
 The canonical process for starship construction under the Unified Starship Building Codes is as follows:
 
-1. **Spine-First Design:** The initial design phase specifies the engineering spine (primary structural backbone, power, and systems routing) according to the intended mission profile and class.
-2. **Hull Construction:** The exterior hull is constructed around the specified spine, establishing the ship’s gross tonnage, volume, and regulatory class. The hull is registered at this stage.
-3. **Post-Construction Reconfiguration:** Once the hull is complete and registered, the internal spine and compartment layout may be reconfigured or refitted as needed, provided all modifications remain within the established hull envelope and comply with safety, access, and structural standards. This enables modular upgrades, mission changes, and lifecycle refits without requiring a new hull.
+1. **Phase 1: Baseline Design (Envelope Fix):** The initial design phase specifies a baseline engineering spine to define the **Exterior Structural Hull (ESH)**. This locks the vessel's displacement volume ($V_{env}$), regulatory class, and primary surface area. The ESH is registered at this stage.
+2. **Phase 2: Custom Configuration (Mass/Density Fix):** Once the ESH is registered, a custom internal spine and module layout are retrofitted into the finalized envelope. 
+3. **Density Determination:** The vessel's **Density Family** (Light, Medium, Heavy) is calculated based on this Phase 2 configuration. It is a consequence of the internal mass distribution and armor lattice depth rather than a constraint of the ESH itself.
+4. **Lifecycle Reconfiguration:** Internal spines may be swapped or modified throughout the vessel's service life, potentially shifting its Density Family and handling characteristics (VNM) without requiring a new ESH registration.
 
 This doctrine ensures both engineering flexibility and regulatory traceability. All major reconfigurations must be logged in the ship’s record per the Doctrine of Record (CX-002).
 

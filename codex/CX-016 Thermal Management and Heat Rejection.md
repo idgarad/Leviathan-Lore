@@ -148,12 +148,12 @@ Radiators are the final rejection point for all shipboard waste heat.
 ### Tactical Doctrine: The Thermal HP
 In the Leviathan setting, the traditional concept of "Hit Points" (Structural Integrity) is a secondary metric. The true fundamental HP of a ship is its **Thermal Battery Capacity**. 
 
-*   **Cooking the Crew:** Modern weapons (Beams and Plasma) and high-efficiency Armor MST soaks are designed to maximize thermal transfer. In a high-intensity engagement, the primary risk is rarely the physical disintegration of the hull, but rather the **saturation of the thermal batteries**. 
+*   **Cooking the Crew:** Modern weapons (Beams and Plasma) and the new combined deflector shield system are designed to maximize or manage thermal transfer. In a high-intensity engagement, the primary risk is rarely the physical disintegration of the hull, but rather the **saturation of the thermal batteries**. 
 *   **Lethal Equilibrium:** Once batteries reach 100% saturation, the internal temperature of the vessel begins to climb uncontrollably. Even if the armor remains intact, the internal habitable zones quickly exceed the biological limits of the crew. Most surrenders or tactical retreats occur when the ship reaches "Critical Broil"—the point where life support can no longer isolate the crew from the radiant heat of the saturated core.
 
 *   **Strategic Resource:** Thermal battery capacity and heat exchanger efficiency are as critical as weapon output or shield strength. A ship with superior thermal management can sustain combat longer or execute more rapid FTL maneuvers.
 *   **Design Trade-offs:** Ship designers must balance thermal capacity and rejection against hull mass, volume, and survivability. Larger radiator trunks increase `A_ship` but also increase drag and potential target profile.
-*   **Combat Endurance:** The "health" of a ship in combat is often less about its remaining hull integrity and more about its thermal battery saturation. A ship at 90% thermal capacity is severely limited in its offensive and defensive options.
+*   **Combat Endurance:** The "health" of a ship in combat is often less about its remaining hull integrity and more about its thermal battery saturation. The new shield system’s coupling and deflection mechanics mean that tactical choices (large strikes, light shots, missile barrages) directly affect how much heat is imparted to the batteries. A ship at 90% thermal capacity is severely limited in its offensive and defensive options.
 *   **Maintenance:** Overloading thermal batteries or damaging heat exchangers can lead to permanent degradation, requiring extensive drydock maintenance at USO facilities (see CX-015).
 
 ## Cross-References

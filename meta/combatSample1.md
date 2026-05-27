@@ -18,14 +18,14 @@ Both vessels are at 0% Thermal Battery saturation and 100% Structural Integrity.
 - **Focused Beam:** 10 MW (Radiant Vector Sustained)
 **Total Impact:** 20 MJ. **Total Sustained:** 10 MW.
 
-### Defensive Resolution
-1. **IAL Check:** The 20 MJ burst hits the **900 MJ IAL buffer**.
-   - Result: 20 MJ absorbed. Buffer remains at 880 MJ.
-2. **MST Check:** The 10 MW Beam hits the shield.
-   - The shield's **MST is 18 MW**. Since 10 MW < 18 MW, the Sustainable Flow Rate (SFR) cycles the heat instantly into the batteries without draining the IAL.
+
+
+### Defensive Resolution (Combined Deflector System)
+1. **Shield Coupling/Cooling Check:** Each emitter can absorb up to its cooling capacity per strike. With 10 emitters at 10 MJ each, the shield can absorb 10 concurrent 10 MJ strikes—one per emitter. If a strike exceeds an emitter’s capacity, only that amount is absorbed; the leftover MJ penetrates as a glancing blow to the next layer or armor.
+2. **Deflection Calculation:** The number of shield layers (2 × emitters) determines the angular deflection applied. Many light shots are more likely to be deflected before imparting significant heat; large single strikes are more likely to overpenetrate.
 3. **Thermal Battery Accumulation:**
    - **Attacker Waste Heat:** 0.1 (K) + 1.0 (P) + 2.5 (B) = **3.6 MW**.
-   - **Defender Absorption Heat:** 20 MJ (Burst) + 10 MW (Sustained) = **30 MW**.
+   - **Defender Absorption Heat:** 20 MJ (Burst, if within emitter cooling) + 10 MW (Sustained, if not deflected) = **30 MW** (subject to shield system’s cooling and deflection mechanics).
 
 **End of Round 1 Status:**
 - **Drake Thermal Battery:** 33.6 MJ (Waste + Absorption)
