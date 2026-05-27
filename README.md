@@ -6,7 +6,7 @@ This repository is the master reference library for the Leviathan fictional univ
 
 - Golden rule: that math holds. Outside explicit FTL exceptions, claims about scale, travel, production, logistics, violence, and survival should obey internally consistent constraints.
 - Every lore volume uses a dual voice: diegetic presentation first, Author Notes second.
-- History is layered into four strata: Eldritch Layer, Hyborean Era, Ancient History, and Modern Times.
+- History is layered into four strata: Eldritch Layer, Hyborean Era, Ancient History, and Modern Times. These are narrative layers primarily, with implied ordering historically.
 
 ## Repository Layout
 
@@ -49,6 +49,16 @@ This repository is the master reference library for the Leviathan fictional univ
 - `CX-011` defines coalition charters, Prizetts, and temporary Warden alliances under House service.
 - `CX-012` defines campaign closure, Imperial settlement, pressed claims, and continuity between campaigns.
 - `CX-013` begins the FTL rewrite by defining Conventional Space, Hyperspace, Jump Space, and the starter-gate campaign doctrine.
+- `CX-014` defines Power Generation via Compact Dimensional Acceleration Packs (CDAP).
+- `CX-015` defines Defensive and Offensive Systems, including shields, armor, weapon vectors, and the Valid Firing Solution (VFS).
+- `CX-016` defines Thermal Management and Heat Rejection, establishing Thermal Batteries as a vessel's primary "Hit Points."
+- `CX-999` defines the USO Unified Starship Building Codes, establishing structural standards, SCU metrics, and the layered hull construction doctrine.
+
+## System Codices
+
+- `Master Skill Codex` defines the suites, ranks, and progression for pilot and crew skills.
+- `The Leviathan Parts Catalog` provides the authoritative registry of standardized ship hulls and class-based components.
+- `The Leviathan Module Codex` defines ship module standards, slot types, and facility grouping requirements.
 
 ## Appendices
 
@@ -56,6 +66,8 @@ This repository is the master reference library for the Leviathan fictional univ
 - `AX-002` records the lesser houses and their liege relationships.
 - `AX-003` records the territory-to-region-to-survey-sector-to-system hierarchy, fixes the survey sector as the default frontier fiefdom unit, and fixes T0 as the canonical Throne territory map.
 - `AX-004` records the current CHJ calibration hull set, fixes SDF-1 Macross as the reference ship, and defines the volume-normalized mass baseline used for cross-franchise FTL comparison.
+- `AX-005` provides the detailed component list, dimensions, and power requirements for FTL engines across all scale classes.
+- `AX-006` (In-Progress) establishes the CDAP Power System Calibration and unit-level efficiency curves.
 
 ## Legacy Integration
 
