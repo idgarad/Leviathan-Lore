@@ -156,6 +156,18 @@ In the Leviathan setting, the traditional concept of "Hit Points" (Structural In
 *   **Combat Endurance:** The "health" of a ship in combat is often less about its remaining hull integrity and more about its thermal battery saturation. The new shield system’s coupling and deflection mechanics mean that tactical choices (large strikes, light shots, missile barrages) directly affect how much heat is imparted to the batteries. A ship at 90% thermal capacity is severely limited in its offensive and defensive options.
 *   **Maintenance:** Overloading thermal batteries or damaging heat exchangers can lead to permanent degradation, requiring extensive drydock maintenance at USO facilities (see CX-015).
 
+## Armor as a Thermal Sink
+
+While the primary thermal batteries are the main heat reservoir, the ship's armor plating itself acts as a secondary, temporary thermal sink. When armor absorbs weapon energy, a portion of that heat is stored in the armor mass before being transferred to the thermal batteries via the ECS and coolant loops.
+
+- **Default Mass Fraction:** Armor is assumed to be 10% of the ship's total mass unless otherwise specified.
+- **Specific Heat Capacity ($c_{armor}$):** For dura-steel and advanced sci-fi alloys, $c_{armor} = 0.55~\text{kJ}/(\text{kg} \cdot K)$ is used as a baseline.
+- **Thermal Storage Formula:**
+    $$Q_{armor} = m_{armor} \cdot c_{armor} \cdot \Delta T_{armor}$$
+    Where $Q_{armor}$ is the heat stored (in kJ), $m_{armor}$ is the armor mass (kg), $c_{armor}$ is the specific heat, and $\Delta T_{armor}$ is the temperature rise.
+- **Thermal Transfer:** The ECS and coolant system slowly transfer heat from the armor to the thermal batteries. Armor also radiates a small amount of heat directly to space, but this is inefficient compared to active cooling.
+- **Gameplay/Simulation Note:** This creates a brief delay between energy absorption and battery saturation, allowing for tactical cooling and "thermal lag" effects. In extreme cases, overheated armor can become a vulnerability if not managed.
+
 ## Cross-References
 
 - CX-000: The Axiom That Math Holds (Underpins all thermal physics)

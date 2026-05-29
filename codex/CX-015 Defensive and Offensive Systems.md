@@ -223,6 +223,18 @@ Standard Imperial doctrine typically operates shield arrays at 50% active capaci
 
 When energy exceeds the shield's IAL or when the shield system is inactive, the vessel's physical structure serves as the primary defense. This is divided into the **Ablative Armor Layer** and the **Structural Hull Frame**.
 
+### Armor as a Thermal Sink
+
+In addition to its structural and ablative functions, the ship's armor plating acts as a temporary thermal sink. When armor absorbs weapon energy, a portion of that heat is stored in the armor mass before being transferred to the thermal batteries via the ECS and coolant loops (see CX-016 for full thermal management details).
+
+- **Default Mass Fraction:** Armor is assumed to be 10% of the ship's total mass unless otherwise specified.
+- **Specific Heat Capacity ($c_{armor}$):** For dura-steel and advanced sci-fi alloys, $c_{armor} = 0.55~\text{kJ}/(\text{kg} \cdot K)$ is used as a baseline.
+- **Thermal Storage Formula:**
+    $$Q_{armor} = m_{armor} \cdot c_{armor} \cdot \Delta T_{armor}$$
+    Where $Q_{armor}$ is the heat stored (in kJ), $m_{armor}$ is the armor mass (kg), $c_{armor}$ is the specific heat, and $\Delta T_{armor}$ is the temperature rise.
+- **Thermal Transfer:** The ECS and coolant system slowly transfer heat from the armor to the thermal batteries. Armor also radiates a small amount of heat directly to space, but this is inefficient compared to active cooling.
+- **Simulation Note:** This creates a brief delay between energy absorption and battery saturation, allowing for tactical cooling and "thermal lag" effects. In extreme cases, overheated armor can become a vulnerability if not managed.
+
 ### The Armor MST (Hardness Rating)
 
 Unlike the shield system, which functions as a drawdown buffer, armor operates as a **Hardness Test**. The **Armor MST** is the fixed MegaJoule (MJ) rating of the plating's structural and thermal resistance.
